@@ -1,7 +1,11 @@
-# The-Shootout
-This game is a zero-player game, meaning that its evolution is determinated by its initial state, requiring no further input. One interacts with 'The Shootout' by creating an initial configuration and observing how it evolves.
+# Homework and projects 
+This repository contains my projects made along my bachelor studies at Faculty of Mathematics and Computer Science, University of Bucharest.
 
-## Description
-We have a map on which a number of agents(players, enemies or wizards) are placed. Each agent has an area of visibility in which he can see other agents and a weapon that can fire in a certain way, depending on its type, as well as an armor that can protect the agent or/and influence the way its weapon fire. If the agent has no other agent in his visibility area, then it can change position(the move is made with a distance less than the area of visibility). Some characters, like the wizards, have the power to revive.
-
-The whole action takes place in rounds. In each round, each agent can use the weapon or move on another title, depending on the context in which it is. The game ends when either all enemies are dead, which means the player wins, or the player has no life.
+## Content:
+* [AI](AI) - Artificial Intelligence
+* [CG](CG) - Computational Geometry
+* [Db](Db) - Designing and constructing relational databases; accessing, defining and maintaining data using SQL Oracle
+* [Probability and Statistics](https://github.com/danadascalescu00/FMI/tree/master/Probability%20and%20Statistics)
+* [PP](PP) - Procedural Programming
+* [OOP](OOP) - Object Oriented Programming in C++
+* [OS](OS) - Operating Systems
