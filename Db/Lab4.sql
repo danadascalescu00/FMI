@@ -208,14 +208,13 @@ FROM departments d LEFT OUTER JOIN employees e
 GROUP BY d.department_id, d.department_name, e.first_name||' '||e.last_name, e.salary, e.job_id;
 
 
---23. Scrieti o cerere pentru a afisa, pentru departamentele avand codul > 80, salariul total pentru fiecare job din cadrul departamentului. 
--- Se vor afisa orasul, numele departamentului, jobul si suma salariilor.
+--23.
 SELECT d.department_name, l.city, e.job_id, SUM(salary)
 FROM employees e, departments d, locations l
 WHERE e.department_id = d.department_id
     AND d.location_id = l.location_id
     AND d.department_id > 80
-GROUP BY d.department_name, l.city, e.job_id;
+GROUP BY GROUPING SETS ((d.department_name, e.job_id), l.city, ());
 
 
 --24. Care sunt angajatii care au mai avut cel putin doua joburi?
@@ -239,12 +238,20 @@ FROM employees;
 
 --27. Scrieti o cerere pentru a afisa job-ul, salariul total pentru job-ul respectiv pe departamente si salariul total pentru job-ul respectiv pe departamentele 30, 50, 80.
 -- Varianta 1
-SELECT job_id, SUM(salary) TOTAL_SALARY_PER_JOB,
-    SUM(DECODE(department_id, 30, salary)) DEP#30,
-    SUM(DECODE(department_id, 50, salary)) DEP#50,
-    SUM(DECODE(department_id, 80, salary)) DEP#80
-FROM employees
-GROUP BY job_id;
+SELECT j.job_id job, (SELECT DECODE(d.department_id, 30, SUM(salary))
+                      FROM employees
+                      WHERE j.job_id = job_id) dep30,
+                    (SELECT DECODE(d.department_id, 50, SUM(salary))
+                    FROM employees
+                    WHERE j.job_id = job_id) dep50,
+                    (SELECT DECODE(d.department_id, 80, SUM(salary))
+                    FROM employees
+                    WHERE j.job_id = job_id) dep80,
+    SUM(salary) total
+FROM jobs j, departments d, employees e
+WHERE j.job_id = e.job_id
+AND d.department_id = e.department_id
+GROUP BY j.job_id, d.department_id;
 
 
 --28. Sa se creeze o cerere prin care sa se afiseze numarul total de angajati ?i, din acest total, numarul celor care au fost angajati in 1997, 1998, 1999 si 2000. 
