@@ -179,7 +179,7 @@ WHERE 2 < (SELECT COUNT(*)
            WHERE manager_id = e.employee_id);
      
            
---12. Sa se determine locatiile în care se afla cel pu?in un departament.
+--12. Sa se determine locatiile Ã®n care se afla cel pu?in un departament.
 SELECT l.street_address||' '||l.postal_code||' '||l.city||' '||l.state_province||' '||c.country_name "Adresa"
 FROM locations l
 JOIN countries c ON l.country_id = c.country_id
@@ -214,7 +214,7 @@ START WITH manager_id = (SELECT employee_id
 CONNECT BY PRIOR employee_id = manager_id;
                    
                    
---15. Sa se ob?in? ierarhia sef-subaltern, considerând ca r?d?cin? angajatul având codul 114.
+--15. Sa se ob?in? ierarhia sef-subaltern, considerÃ¢nd ca r?d?cin? angajatul avÃ¢nd codul 114.
 SELECT *
 FROM employees
 START WITH employee_id = 114
@@ -230,12 +230,12 @@ START WITH manager_id = (SELECT employee_id
 CONNECT BY PRIOR employee_id = manager_id;
 
 --17. Pentru fiecare linie din tabelul EMPLOYEES, se va afisa o structura arborescenta in care va aparea angajatul, managerul sau, managerul managerului etc. 
--- Coloanele afisate vor fi: codul angajatului, codul managerului, nivelul în ierarhie si numele angajatului.
+-- Coloanele afisate vor fi: codul angajatului, codul managerului, nivelul Ã®n ierarhie si numele angajatului.
 SELECT LEVEL, employee_id, first_name||' '||last_name, manager_id
 FROM employees
 CONNECT BY PRIOR manager_id = employee_id;
 
---18 Sa se afiseze ierarhia de sub angajatul având salariul maxim, retinând numai angajatii al carorsalariu este mai mare de 5000.
+--18 Sa se afiseze ierarhia de sub angajatul avÃ¢nd salariul maxim, retinÃ¢nd numai angajatii al carorsalariu este mai mare de 5000.
 SELECT LEVEL, employee_id, first_name||' '||last_name full_name, salary, manager_id   
 FROM employees
 START WITH manager_id = (SELECT employee_id
@@ -335,7 +335,7 @@ WHERE NULLIF(LENGTH(last_name),LENGTH(first_name)) IS NOT NULL;
 
 --25. Sa se afiseze numele, data angajarii, salariul si o coloana reprezentand salariul dupa ce se aplica o marire, astfel: 
 -- pentru salariatii angajati in 1989 cresterea este de 20%, pentru cei angajati in 1990 cresterea este de 15%, iar salariul celor angajati in anul 1991 cre?te cu 10%.
--- Pentru salariatii angajati în alti ani valoarea nu se modifica.
+-- Pentru salariatii angajati Ã®n alti ani valoarea nu se modifica.
 --Varianta 1
 SELECT first_name||' '||last_name full_name, hire_date, salary,
     CASE TO_CHAR(hire_date, 'yyyy')
