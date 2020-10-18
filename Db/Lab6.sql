@@ -145,7 +145,7 @@ FROM employees e
 INNER JOIN manager m ON e.employee_id = m.employee_id;
 
 
---11. Sa se afiseze lista angajatilor care au lucrat numai pe proiecte conduse de managerul de proiect av‚nd codul 102.
+--11. Sa se afiseze lista angajatilor care au lucrat numai pe proiecte conduse de managerul de proiect av√¢nd codul 102.
 SELECT *
 FROM employees
 INNER JOIN works_on USING (employee_id)
