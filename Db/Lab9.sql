@@ -170,21 +170,10 @@ CREATE VIEW viz_emp_dep30_dda
          
 DESC viz_emp_dep30_dda;
 
---b) Inserati o linie prin intermediul acestei vizualiz?ri.
---CREATE OR REPLACE TRIGGER trig_insert_viz_emp30_dda
---INSTEAD OF INSERT 
---    ON viz_emp_dep30_dda
---BEGIN
---    INSERT INTO departments(department_id, department_name)
---    VALUES(:new.department_id, :new.department_name);
---    INSERT INTO viz_emp30_dda(employee_id, last_name, email, salary, department_id, hire_date, job_id)
---    VALUES(:new.employee_id, :new.last_name, :new.email, :new.salary, :new.department_id, :new.hire_date, :new.job_id);
---END;
---
---INSERT INTO viz_emp_dep30_dda(employee_id, last_name, email, salary, department_id, hire_date, job_id, department_name)
---VALUES(589, 'Nume3', 'nume3@yahoo.ro', 56220, 5, sysdate - 2, 'PU_MAN', 'Economic');
---
---ROLLBACK;
+--b) Inserati o linie prin intermediul acestei vizualizari.
+-- Pentru vizualizarile bazate pe mai multe tabele, orice operatie INSERT, UPDATE sau DELETE poate modifica datele doar din unul din tabelele de baza. 
+-- Acest tabel este partajat prin cheie(key preserved).
+
 
 --12. Sa se creeze vizualizarea VIZ_DEPT_SUM_PNU, care contine codul departamentului si pentru fiecare
 --departament salariul minim, maxim si media salariilor. Ce fel de vizualizare se obtine (complexa sau simpla)? 
@@ -221,7 +210,7 @@ WHERE CONSTRAINT_NAME = 'NOUA_CONSTRANGERE';
 
 --14
 --a) Definiti o vizualizare, VIZ_EMP_S_PNU, care sa contina detalii despre angajatii corespunzatori departamentelor 
--- care incep cu litera S. Se pot insera/actualiza linii prin intermediul acestei vizualizari? În care dintre tabele? 
+-- care incep cu litera S. Se pot insera/actualiza linii prin intermediul acestei vizualizari? ÃŽn care dintre tabele? 
 -- Ce se intampla la stergerea prin intermediul vizualizarii?
 DESC employees;
 
@@ -266,7 +255,7 @@ FROM USER_VIEWS;
 --care face parte, pentru fiecare angajat. Este necesara o vizualizare inline?
 
 --Varianta 1
--- Subcererile însotite de un alias care apar în comenzile SELECT se numesc vizualizari inline, valabile doar pe durata executiei instrcutiunii.
+-- Subcererile Ã®nsotite de un alias care apar Ã®n comenzile SELECT se numesc vizualizari inline, valabile doar pe durata executiei instrcutiunii.
 SELECT last_name, salary, department_id, ( SELECT MAX(salary) max_sal
                                            FROM employees em
                                            WHERE em.department_id = e.department_id) max_sal
@@ -332,7 +321,7 @@ MAXVALUE 10000
 NOCYCLE
 NOCACHE;
 
---23. Sa se modifice toate liniile din EMP_PNU, regenerand codul angajatilor astfel incât sa utilizeze secventa SEQ_EMP_PNU 
+--23. Sa se modifice toate liniile din EMP_PNU, regenerand codul angajatilor astfel incÃ¢t sa utilizeze secventa SEQ_EMP_PNU 
 -- si sa avem continuitate in codurile angajatilor.
 SELECT *
 FROM emp_dda;
@@ -511,7 +500,7 @@ RENAME DEPT_DDA TO DEPARTAMENTS_DDA;
 -- In urma redenumirri unui tabel sunt ivalidatte toate obiectele ce depind de obiectul redenumit, cum ar fi vizualizari, sinonime sau proceduri si functii stocate
 
 
---45. Eliminati sinonimele create anterior prin intermediul unui script care sa selecteze numele sinonimelor din USER_SYNONYMS care au termina?ia “pnu” 
+--45. Eliminati sinonimele create anterior prin intermediul unui script care sa selecteze numele sinonimelor din USER_SYNONYMS care au termina?ia Â“pnuÂ” 
 -- si sa genereze un fisier cu comenzile de stergere corespunzatoare.
 
 SET FEEDBACK OFF
