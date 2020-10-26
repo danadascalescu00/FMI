@@ -10,3 +10,4 @@ This repository contains my projects made along with my bachelor studies at the 
 * [OOP](OOP) - Object Oriented Programming in C++
 * [OS](OS) - Operating Systems
 * [SGBD](SGBD) - PL/SQL
+* [CN](CN)
