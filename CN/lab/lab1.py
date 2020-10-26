@@ -52,8 +52,8 @@ def main():
     pyplot.figure(0)
     pyplot.title('Metoda bisectiei')
     pyplot.legend(['f(x)', 'x_num']) 
-    pyplot.axvline(0, c='black') # Add axis Oy
-    pyplot.axhline(0, c='black') # Add axis Ox
+    pyplot.axvline(0, c='black')
+    pyplot.axhline(0, c='black')
     pyplot.xlabel('x') 
     pyplot.ylabel('y') 
     pyplot.scatter(x_coordinates, y_coordinates, c="red", alpha=1)
@@ -67,33 +67,3 @@ if __name__ == "__main__":
     # Sa se gaseasca cele trei solutii ale ecuatii urmatoare: x^3 -7x^2 + 4x - 6 = 0 pe intervalul [0,4] cu o precizie Epsilon = 10^(-5)
     # HINT: Se vor alege intervalele [0,1], [1,3.2] si [3.2,4].
     main()
-
-
-
-# import numpy as np
-# import matplotlib.pyplot as plt
-
-# def f(x):
-#     fct = np.power(x, 3) - 7 * np.power(x, 2) + 14 * x - 6
-#     return fct
-
-# axa_Ox = np.linspace(0, 4, 1000)
-# axa_Oy = f(axa_Ox)
-# plt.scatter(axa_Ox, axa_Oy, s = 25, c = 'black', marker = 'o')
-# plt.show()
-
-
-# def metoda_bisectiei(a, b, n):
-#     x_num = (a + b) // 2
-#     for i in range(n):
-#         if f(x_num) == 0:
-#             return x_num
-#         elif f(a) * f(x_num) < 0:
-#             b = x_num
-#         else:
-#             a = x_num
-
-# n = 1
-# sol1 = metoda_bisectiei(0, 1, n)
-# print(sol1)
-
