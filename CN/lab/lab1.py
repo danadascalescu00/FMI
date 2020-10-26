@@ -26,7 +26,6 @@ def metoda_bisectiei(a, b, epsilon):
     return x_num
 
 
-
 def main():
     epsilon = 1e-5
 
@@ -59,8 +58,6 @@ def main():
     pyplot.scatter(x_coordinates, y_coordinates, c="red", alpha=1)
     pyplot.plot(axis_Ox, axis_Oy, c = "black", linestyle = "-", linewidth = 2)
     pyplot.show()
-
-
 
 
 if __name__ == "__main__":
