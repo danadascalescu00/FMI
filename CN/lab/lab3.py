@@ -8,7 +8,7 @@ n = U.shape[0]
 x = np.zeros(n)
 
 # Pasul 1: Verificam daca sistemul are solutii(determinantul matricei trebuie sa fie diferit de 0)
-if np.linalg.det(U) < 1e-5:
+if abs(np.linalg.det(U)) < 1e-5:
     print("Determinantul matricei este null, prin urmare istemul nu are solutii!")
     exit(1)
 
@@ -19,5 +19,5 @@ if np.linalg.det(U) < 1e-5:
 for i in range(n-1, -1, -1):
     x[i] = (C[i] - np.dot(U[i,i+1:], x[i+1:])) / U[i][i]
 
-print(x)
+print('x = ', x)
 print('U @ x = ', U @ x)
