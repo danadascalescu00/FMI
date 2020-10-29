@@ -160,8 +160,8 @@ SET SERVEROUTPUT OFF
 
 --6. Scrieti un blocPL/SQL in care stocati prin variabile de substitutie un cod de angajat, un cod de departament si procentul cu care se mare?te salariul acestuia.  
 -- Sa se mute salariatul in noul departament si sa i se creasca salariul in mod corespunzator. Daca modificarea s-a putut realiza
---(exista in tabelul emp_*** un salariat avand codul respectiv)sa se afiseze mesajul “Actualizare realizata”, 
--- iar in caz contrar mesajul “Nu exista un angajat cu acest cod”. Anulati modificarile realizate.
+--(exista in tabelul emp_*** un salariat avand codul respectiv)sa se afiseze mesajul â€œActualizare realizataâ€, 
+-- iar in caz contrar mesajul â€œNu exista un angajat cu acest codâ€. Anulati modificarile realizate.
 CREATE TABLE emp_dda
 AS SELECT * FROM employees;
 DESC emp_dda;
@@ -295,12 +295,12 @@ BEGIN
  END;
  /
  
- --a)Valoarea variabilei numar în subbloc este: 2
- --b)Valoarea variabilei mesaj1 în subbloc este: 'text 2'
- --c)Valoarea variabilei mesaj2 în subbloc este: 'text 3 adaugat in subloc'
- --d)Valoarea variabilei numar în bloc este: 101
- --e)Valoarea variabilei mesaj1 în bloc este: 'text 1 adaugat in blocul principal'
- --f)Valoarea variabilei mesaj2 în bloc este: 'text 2 adaugat in blocul principal'
+ --a)Valoarea variabilei numar Ã®n subbloc este: 2
+ --b)Valoarea variabilei mesaj1 Ã®n subbloc este: 'text 2'
+ --c)Valoarea variabilei mesaj2 Ã®n subbloc este: 'text 3 adaugat in subloc'
+ --d)Valoarea variabilei numar Ã®n bloc este: 101
+ --e)Valoarea variabilei mesaj1 Ã®n bloc este: 'text 1 adaugat in blocul principal'
+ --f)Valoarea variabilei mesaj2 Ã®n bloc este: 'text 2 adaugat in blocul principal'
 
 
 --2. Se da urmatorul enunt: 
@@ -344,27 +344,24 @@ END;
 
 
 --3. Definiti un bloc anonim in care sa se determine numarul de filme(titluri) imprumutate de un membru al carui nume este introdus de la tastatura. 
--- Trata?i urmatoarele doua situa?ii: nu exista nici un membru cu numele dat; exista mai multi membrii cu acelasi nume.
+-- Tratati urmatoarele doua situatii: nu exista nici un membru cu numele dat; exista mai multi membrii cu acelasi nume.
 SELECT * FROM member;
 DESC member;
 
---Varianta 1 -- Luam in considerare situatiile: nu exista nici un membru cu numele dat; exista mai multi membri cu acelasi nume;
--- exista membri in baza de date care nu au inchiriat nici un film
 SET SERVEROUTPUT ON
 DECLARE
-    v_member_id    member.member_id%TYPE;
-    v_member_name  VARCHAR2(25) := &p_last_name;
-    v_no_movies    NUMBER := 0;
+    v_member_name  member.last_name%TYPE := '&input';
+    v_member_id    NUMBER;
+    v_no_movies   NUMBER(2);
 BEGIN
     SELECT member_id INTO v_member_id
-    FROM member
-    WHERE TRIM(BOTH ' ' FROM UPPER(last_name)) = TRIM(BOTH ' ' FROM UPPER(v_member_name));
+    FROM member m
+    WHERE TRIM(BOTH ' ' FROM UPPER(m.last_name)) = TRIM(BOTH ' ' FROM UPPER(v_member_name));
     
-    SELECT COUNT(*) INTO v_no_movies
-    FROM title JOIN title_copy
-        USING(title_id)
-    JOIN rental USING(title_id)
-    WHERE member_id = v_member_id;
+    SELECT COUNT(DISTINCT title_id) INTO v_no_movies
+    FROM rental r, member m
+    WHERE r.member_id = m.member_id
+        AND TRIM(BOTH ' ' FROM UPPER(m.last_name)) = TRIM(BOTH ' ' FROM UPPER(v_member_name));
     
     IF v_no_movies = 0 THEN
         DBMS_OUTPUT.PUT_LINE('No movies rented!');
@@ -389,34 +386,39 @@ END;
 
 SET SERVEROUTPUT ON
 DECLARE
-    v_member_id       member.member_id%TYPE;
-    v_member_name     VARCHAR2(25) := &p_last_name;
-    v_no_movies       NUMBER := 0;
-    v_no_total_movies NUMBER;
-    v_percent         NUMBER;
+    v_member_name  member.last_name%TYPE := '&input';
+    v_member_id    NUMBER;
+    v_no_movies    NUMBER(2);
+    v_no_total     NUMBER(2);
+    v_percent      NUMBER;
 BEGIN
     SELECT member_id INTO v_member_id
-    FROM member
-    WHERE TRIM(BOTH ' ' FROM UPPER(last_name)) = TRIM(BOTH ' ' FROM UPPER(v_member_name));
+    FROM member m
+    WHERE TRIM(BOTH ' ' FROM UPPER(m.last_name)) = TRIM(BOTH ' ' FROM UPPER(v_member_name));
     
-    SELECT COUNT(*) INTO v_no_total_movies
-    FROM titile;
+    SELECT COUNT(DISTINCT title_id) INTO v_no_movies
+    FROM rental r, member m
+    WHERE r.member_id = m.member_id
+        AND TRIM(BOTH ' ' FROM UPPER(m.last_name)) = TRIM(BOTH ' ' FROM UPPER(v_member_name));
     
-    SELECT COUNT(*) INTO v_no_movies
-    FROM title JOIN title_copy
-        USING(title_id)
-    JOIN rental USING(title_id)
-    WHERE member_id = v_member_id;
+    SELECT COUNT(*) INTO v_no_total
+    FROM title;
     
-    v_percent := v_no_movies / v_no_total_movies;
-    CASE 
+    IF v_no_movies = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('No movies rented!');
+    ELSE DBMS_OUTPUT.PUT_LINE('Rented: '||v_no_movies);
+    END IF;
+    
+    v_percent := v_no_movies / v_no_total;
+    CASE
         WHEN v_percent > 0.75 THEN
-            DBMS_OUTPUT.PUT_LINE('Categoria 1');
-        WHEN v_percent BETWEEN 0.50 AND 0.75 THEN
-            DBMS_OUTPUT.PUT_LINE('Categoria 2');
-        WHEN v_percent BETWEEN 0.25 AND 0.5 THEN
-            DBMS_OUTPUT.PUT_LINE('Categoria 3');
-        ELSE DBMS_OUTPUT.PUT_LINE('Categotia 4');    
+            DBMS_OUTPUT.PUT_LINE('Caterogy I');
+        WHEN v_percent BETWEEN 0.5 AND 0.75 THEN
+            DBMS_OUTPUT.PUT_LINE('Caterogy II');
+        WHEN v_percent BETWEEN 0.25 AND 0.5 THEN 
+            DBMS_OUTPUT.PUT_LINE('Caterogy III');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Caterogy IV');
     END CASE;
 EXCEPTION
     WHEN no_data_found THEN
@@ -432,7 +434,7 @@ END;
 --5. Creati tabelul member_*** (o  copie  a  tabelului member). Adaugati in acest tabel coloana discount, care va reprezenta procentul de reducere
 -- aplicat pentru membrii, in functie de categoria din care fac parte acestia:
 -- -10% pentru membrii din Categoria 1 
--- -5% pentru membrii din Categoria 
+-- -5% pentru membrii din Categoria II
 -- -2-3% pentru membrii din Categoria 3
 -- -nimic.
 -- Actualizati coloana discount pentru un membru al carui cod este dat de la tastatura. Afisati un mesaj din care sa reiasa daca actualizarea s-a produs sau nu.
@@ -444,3 +446,52 @@ AS ( SELECT * FROM member);
 ALTER TABLE member_dda
 ADD discount NUMBER DEFAULT 0;
 
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_member_name  member.last_name%TYPE := '&input';
+    v_member_id    NUMBER;
+    v_no_movies    NUMBER(2);
+    v_no_total     NUMBER(2);
+    v_percent      NUMBER;
+BEGIN
+    SELECT member_id INTO v_member_id
+    FROM member m
+    WHERE TRIM(BOTH ' ' FROM UPPER(m.last_name)) = TRIM(BOTH ' ' FROM UPPER(v_member_name));
+    
+    SELECT COUNT(DISTINCT title_id) INTO v_no_movies
+    FROM rental r, member m
+    WHERE r.member_id = m.member_id
+        AND TRIM(BOTH ' ' FROM UPPER(m.last_name)) = TRIM(BOTH ' ' FROM UPPER(v_member_name));
+    
+    SELECT COUNT(*) INTO v_no_total
+    FROM title;
+    
+    IF v_no_movies = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('No movies rented!');
+    ELSE DBMS_OUTPUT.PUT_LINE('Rented: '||v_no_movies);
+    END IF;
+    
+    v_percent := v_no_movies / v_no_total;
+    CASE
+        WHEN v_percent > 0.75 THEN
+            UPDATE member_dda SET discount = 10 WHERE member_id = v_member_id;
+        WHEN v_percent BETWEEN 0.5 AND 0.75 THEN
+            UPDATE member_dda SET discount = 5 WHERE member_id = v_member_id;
+        WHEN v_percent BETWEEN 0.25 AND 0.5 THEN 
+            UPDATE member_dda SET discount = 3 WHERE member_id = v_member_id;        
+    END CASE;
+    
+    IF SQL%ROWCOUNT > 0
+        THEN DBMS_OUTPUT.PUT_LINE('Discount updated for member with ID '||v_member_id);
+        ELSE DBMS_OUTPUT.PUT_LINE('No update!');
+    END IF;
+EXCEPTION
+    WHEN no_data_found THEN
+        DBMS_OUTPUT.PUT_LINE('Nobody with the given name!');
+    WHEN too_many_rows THEN
+        DBMS_OUTPUT.PUT_LINE('There are many people with the given name!');
+    WHEN others THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR');
+END;
+/
