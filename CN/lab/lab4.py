@@ -4,6 +4,11 @@ import numpy as np
 A = np.array([[2., -1., -2.], [4., 2., 0.], [0., -2., -1.]])
 C = np.array([[-1., 6., -3.]]).T
 
+# Limitarile metodei
+# epsilon = 1e-5
+# A = np.array([[epsilon, 1.], [1., 1.]])
+# C = np.array([[1. + epsilon, 2.]]).T
+
 n = A.shape[0]
 x = np.zeros(n)
 
@@ -13,19 +18,19 @@ if abs(np.linalg.det(A)) < 1e-5:
     exit(1)
 
 
-# Pasul 2: Aplicam Metoda Gauss fara pivotare
+# Pasul 2: Aplicam Metoda Gauss cu pivotare partiala
 A_extins = np.concatenate((A, C), axis = 1)
- 
+
 for k in range(0, n-1):
     for l in range(k + 1, n):
+        p = np.argmax(A[k:][k]) + k
+        A_extins[[p,k]] = A_extins[[k,k]] 
         A_extins[l] = A_extins[l] - (A_extins[l][k] / A_extins[k][k]) * A_extins[k]
 
-print(A_extins)
+
 U = np.copy(A_extins[0:n])
 U = np.delete(U, n, axis = 1)
 C = A_extins[:,n]
-print(U, C)
-
 
 """ 
     Pasul 3: Mergem de la ultima linie catre prima, rezolvand sistemul prin substitutie 
