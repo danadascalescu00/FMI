@@ -5,7 +5,7 @@ This repository contains my projects made along with my bachelor studies at the 
 * [AI](AI) - Artificial Intelligence
 * [CG](CG) - Computational Geometry
 * [CN](CN) - Numerical Analysis (in Python)
-* [Computer Vision]
+* [Computer Vision](https://github.com/danadascalescu00/FMI/tree/master/Computer%20Vision)
 * [Db](Db) - Designing and constructing relational databases; accessing, defining and maintaining data using SQL Oracle
 * [Probability and Statistics](https://github.com/danadascalescu00/FMI/tree/master/Probability%20and%20Statistics)
 * [PP](PP) - Procedural Programming
