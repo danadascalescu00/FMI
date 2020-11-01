@@ -1,4 +1,3 @@
-
 import numpy as np
 from math import floor, log2
 import matplotlib.pyplot as pyplot
