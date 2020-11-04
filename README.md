@@ -11,4 +11,4 @@ This repository contains my projects made along with my bachelor studies at the 
 * [PP](PP) - Procedural Programming
 * [OOP](OOP) - Object Oriented Programming in C++
 * [OS](OS) - Operating Systems
-* [SGBD](SGBD) - PL/SQL
+* [SGBD](SGBD) - DataBase Management System(in PL/SQL)
