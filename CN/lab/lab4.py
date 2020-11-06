@@ -1,13 +1,13 @@
 from sys import exit
 import numpy as np
 
-A = np.array([[2., -1., -2.], [4., 2., 0.], [0., -2., -1.]])
-C = np.array([[-1., 6., -3.]]).T
+# A = np.array([[2., -1., -2.], [4., 2., 0.], [0., -2., -1.]])
+# C = np.array([[-1., 6., -3.]]).T
 
 # Limitarile metodei
-# epsilon = 1e-5
-# A = np.array([[epsilon, 1.], [1., 1.]])
-# C = np.array([[1. + epsilon, 2.]]).T
+epsilon = 1e-20
+A = np.array([[epsilon, 1.], [1., 1.]])
+C = np.array([[1. , 2.]]).T
 
 n = A.shape[0]
 x = np.zeros(n)
@@ -22,9 +22,9 @@ if abs(np.linalg.det(A)) < 1e-5:
 A_extins = np.concatenate((A, C), axis = 1)
 
 for k in range(0, n-1):
+    p = np.argmax(np.abs(A[k:][k])) + k
+    A_extins[[p,k]] = A_extins[[k,p]] 
     for l in range(k + 1, n):
-        p = np.argmax(A[k:][k]) + k
-        A_extins[[p,k]] = A_extins[[k,k]] 
         A_extins[l] = A_extins[l] - (A_extins[l][k] / A_extins[k][k]) * A_extins[k]
 
 
