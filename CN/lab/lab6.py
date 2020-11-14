@@ -27,12 +27,12 @@ for k in range(0, n-1):
     for i in range(k + 1, n):
         L[i][k] = U[i][k] / U[k][k]
         U[i] = U[i] - (L[i][k] * U[k])
-L += np.eye(n)
+L += np.identity(n)
 
 print('U: \n', U)
 print('L: \n', L)
-print('\n P @ A == L @ U: \n')
-print( P @ A == L @ U)
+print('\n P @ A == L @ U:')
+print( P @ A == L @ U, '\n')
 
 
 # Metoda Substitutiei Ascendente
