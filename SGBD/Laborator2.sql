@@ -628,44 +628,6 @@ END;
 /
 
 --d. Pentru fiecare excursie afisati lista oraselor vizitate
--- Varianta 1
-DECLARE
-    v_index_min excursie_dda.cod_excursie%TYPE;
-    v_index_max excursie_dda.cod_excursie%TYPE;
-    v_lista_orase excursie_dda.orase%TYPE;
-BEGIN
-    SELECT MIN(cod_excursie)
-    INTO v_index_min
-    FROM excursie_dda;
-    
-    SELECT MAX(cod_excursie)
-    INTO v_index_max
-    FROM excursie_dda;
-    
-    FOR i IN v_index_min..v_index_max LOOP
-        SELECT orase INTO v_lista_orase
-        FROM excursie_dda
-        WHERE cod_excursie = i;
-        
-        DBMS_OUTPUT.NEW_LINE;    
-        DBMS_OUTPUT.PUT_LINE('Excursia cu codul ' || i ||': ');
-        FOR i IN v_lista_orase.FIRST..v_lista_orase.LAST LOOP
-            IF v_lista_orase.EXISTS(i) THEN 
-                IF i = v_lista_orase.LAST THEN
-                    DBMS_OUTPUT.PUT(v_lista_orase(i));
-                ELSE 
-                    DBMS_OUTPUT.PUT(v_lista_orase(i) || ', ');
-                END IF;
-            END IF;
-        END LOOP;
-        DBMS_OUTPUT.NEW_LINE;
-    END LOOP;
-    
-END;
-/
-
-
--- Varianta 2
 DECLARE
     v_lista_orase excursie_dda.orase%TYPE;
     CURSOR c_orase IS

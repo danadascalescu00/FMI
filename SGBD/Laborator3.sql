@@ -455,7 +455,9 @@ END;
 DECLARE
     TYPE empref IS REF CURSOR;
     v_emp empref;
-    v_ang employees%ROWTYPE;
+    v_employee_id               employees.employee_id%TYPE;
+    v_employee_salary           employees.salary%TYPE;
+    v_employee_commission_pct   employees.commission_pct%TYPE;
     v_nr  employees.salary%TYPE := '&n';
 BEGIN
     OPEN v_emp FOR
@@ -463,19 +465,18 @@ BEGIN
         'FROM employees WHERE salary > :bind_var'
         USING v_nr;
     LOOP
-        FETCH v_emp INTO v_ang;
+        FETCH v_emp INTO v_employee_id, v_employee_salary, v_employee_commission_pct;
         EXIT WHEN v_emp%NOTFOUND;
-        IF v_ang.commission_pct IS NOT NULL THEN
-            DBMS_OUTPUT.PUT_LINE('Angajatul ' || v_ang.employee_id || ' are un salariu in valoare de ' 
-                || v_ang.salary || ' si un comision de ' || v_ang.commission_pct);
+        IF v_employee_commission_pct IS NOT NULL THEN
+            DBMS_OUTPUT.PUT_LINE('Angajatul ' || v_employee_id || ' are un salariu in valoare de ' 
+                || v_employee_salary || ' si un comision de ' || v_employee_commission_pct);
         ELSE
-            DBMS_OUTPUT.PUT_LINE('Angajatul ' || v_ang.employee_id || 'are un salariu de ' || v_ang.salary);
+            DBMS_OUTPUT.PUT_LINE('Angajatul ' || v_employee_id || 'are un salariu de ' || v_employee_salary);
         END IF;
     END LOOP;
     CLOSE v_emp;
 END;
 /
-
 
 -- 1. Pentru fiecare job (titlu – care va fi afisat o singura data) obtineti lista angajatilor (nume si salariu) care lucreaza
 -- in prezent pe jobul respectiv. Tratati cazul in care nu exista angajati care sa lucreze in prezent pe un anumit job. Rezolvati problema folosind:
@@ -563,7 +564,7 @@ BEGIN
 END;
 /
 
--- b. ciclu cursiare
+-- b. ciclu cursoare
 DESC jobs;
 
 SET SERVEROUTPUT ON
@@ -779,7 +780,7 @@ END;
 
 
 -- 4. Modificati exercitiul anterior astfel incat sa obtineti pentru fiecare job primii 5 angajati care
--- castiga cel mai mare salariu lunar. Specificati daca pentru un job sunt mai putin de 5 angaja?i.
+-- castiga cel mai mare salariu lunar. Specificati daca pentru un job sunt mai putin de 5 angajati.
 SET SERVEROUTPUT ON
 DECLARE
     CURSOR c_jobs IS
