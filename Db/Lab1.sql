@@ -109,8 +109,3 @@ WHERE (UPPER(j.job_title) LIKE '%CLERK%' AND salary NOT IN (1000, 2000, 3000))
 SELECT first_name, last_name, salary, commission_pct
 FROM employees 
 WHERE 5*commission_pct*salary < salary;   
-
-
-
-
-
