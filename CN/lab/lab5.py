@@ -23,12 +23,14 @@ indices = np.arange(0, n)
 A_extins = np.concatenate((A, C), axis = 1)
 
 for k in range(0, n - 1):
-    submatrice = A_extins[k:, k:n]
+    submatrice = A_extins[k:, k:n-1]
     (p, m) = np.unravel_index(submatrice.argmax(), submatrice.shape)
     p, m = p + k, m + k
     
+    # Daca p != k atunci interschimbam liniile p si k, iar daca m != k interschimbam coloanele m si k
     A_extins[[p,k]] = A_extins[[k,p]]
     A_extins[:, [k, m]] = A_extins[:, [m, k]]
+    # Schimbam indicii necunoscutelor
     indices[m], indices[k] = indices[k], indices[m]
 
     for l in range(k + 1, n):
@@ -47,6 +49,7 @@ C = A_extins[:,n]
 for i in range(n-1, -1, -1):
     x[i] = (C[i] - np.dot(U[i,i+1:], x[i+1:])) / U[i][i]
 
+# La interschimbarea a doua coloane se schimba ordinea necunoscutelor in vectorul x
 print('x = ', x[indices])
 print('A @ x = ', A @ x[indices])
 
@@ -65,7 +68,7 @@ A_extins = np.concatenate((A, I), axis = 1)
 s = 0 # numarul de schimbari de linii
 
 for k in range(0, n - 1):
-    submatrice = A_extins[k:, k:n]
+    submatrice = A_extins[k:, k:n-1]
     (p, m) = np.unravel_index(submatrice.argmax(), submatrice.shape)
     p, m = p + k, m + k
     
@@ -75,13 +78,14 @@ for k in range(0, n - 1):
     if m != k:
         s += 1
 
+    # Daca p != k atunci interschimbam liniile p si k, iar daca m != k interschimbam coloanele m si k
     A_extins[[p,k]] = A_extins[[k,p]]
     A_extins[:, [k, m]] = A_extins[:, [m, k]]
+    # Schimbam indicii necunoscutelor
     indices[m], indices[k] = indices[k], indices[m]
 
     for l in range(k + 1, n):
         A_extins[l] = A_extins[l] - (A_extins[l][k] / A_extins[k][k]) * A_extins[k]
-
 
 
 U = np.copy(A_extins[0:n])
@@ -94,6 +98,6 @@ for i in range(n):
     Daca intr-o matrice patratica se schimba intre ele doua linii(sau coloane) se obtine o matrice care are
     determinantul egal cu opusul determinantului matricei initiale
 """
-determinant = determinant * (-1)**s
+determinant = (-1)**s * determinant
 print('Determinantul matricei obtinut folosind Gauss cu pivotare totala: ', determinant)
 print('Determinantul matricei folosind np.linalg.det: ', np.linalg.det(A))

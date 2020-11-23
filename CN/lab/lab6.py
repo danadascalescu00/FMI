@@ -19,7 +19,7 @@ P = np.identity(n)
     Gauss cu pivotare partiala
 """
 for k in range(0, n-1):
-    p = np.argmax(np.abs(U[k:][k]))
+    p = np.argmax(np.abs(U[k:,k]))
     # interschimbam liniile p si k in U, P, L
     U[[p,k]] = U[[k,p]]
     P[[p,k]] = P[[k,p]] 
