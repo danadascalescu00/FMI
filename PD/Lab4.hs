@@ -1,48 +1,48 @@
-import Numeric.Natural
+
+import Numeric.Natural (Natural)
 
 produsRec :: [Integer] -> Integer
 produsRec [] = 1
 produsRec (x:xs) = x * produsRec xs
 
-
 produsFold :: [Integer] -> Integer
 produsFold = foldr (*) 1 
 
+
 andRec :: [Bool] -> Bool
 andRec [] = True
-andRec ( x : xs )
-    | x = andRec xs
-    | otherwise = False
-
+andRec (x:xs) = x && andRec xs 
 
 andFold :: [Bool] -> Bool
-andFold = foldr (&&) True 
+andFold = foldr (&&) True
 
 
 concatRec :: [[a]] -> [a]
 concatRec [] = []
-concatRec (x:xs) = x ++ concatRec xs
-
+concatRec ((l:ls)) = l ++ concatRec ls  
 
 concatFold :: [[a]] -> [a]
 concatFold = foldr (++) []
 
 
 rmChar :: Char -> String -> String
-rmChar ch =  filter (/= ch)
-
+rmChar ch sir = [ c | c <- sir, ch /= c]
 
 rmCharsRec :: String -> String -> String
-rmCharsRec "" = id
-rmCharsRec (x:xs) = rmChar x . rmCharsRec xs
+rmCharsRec _ [] = []
+rmCharsRec [] l = l
+rmCharsRec l1 (x:xs)
+  | x `elem` l1 = rmCharsRec l1 xs
+  | otherwise = x : rmCharsRec l1 xs
+
+rmCharsComp :: (Foldable t, Eq a) => t a -> [a] -> [a]
+rmCharsComp l1 l2 = [ ch | ch <- l2, not ( elem ch l1 ) ]
 
 test_rmchars :: Bool
 test_rmchars = rmCharsRec ['a'..'l'] "fotbal" == "ot"
 
-
 rmCharsFold :: String -> String -> String
-rmCharsFold s1 s2 = foldr rmChar s2 s1
-
+rmCharsFold sir1 sir2 = foldr rmChar sir2 sir1
 
 
 logistic :: Num a => a -> a -> Natural -> a
@@ -55,7 +55,7 @@ logistic rate start = f
 logistic0 :: Fractional a => Natural -> a
 logistic0 = logistic 3.741 0.00079
 ex1 :: Natural
-ex1 = 25
+ex1 = 20 
 
 
 ex20 :: Fractional a => [a]
