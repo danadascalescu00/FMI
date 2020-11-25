@@ -47,7 +47,6 @@ factori :: Integral a => a -> [a]
 factori n = [ x | x <- [1..n], n `mod` x == 0 ]
 
 func :: [Integer] -> Integer -> Integer -> [[Integer]]
-func [] _ _= [[]]
 func l x y = [ factori poz | (el,poz) <- zip l [0..], el>=x && el<=y ]
 
 
