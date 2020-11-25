@@ -52,12 +52,10 @@ logistic rate start = f
     f n = rate * f (n - 1) * (1 - f (n - 1))
 
 
-
-
 logistic0 :: Fractional a => Natural -> a
 logistic0 = logistic 3.741 0.00079
 ex1 :: Natural
-ex1 = undefined
+ex1 = 25
 
 
 ex20 :: Fractional a => [a]
