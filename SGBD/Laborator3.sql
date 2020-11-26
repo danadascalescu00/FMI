@@ -217,7 +217,7 @@ BEGIN
     LOOP
         FETCH c INTO v_nume_dep, v_num;
         EXIT WHEN c%NOTFOUND;
-        IF v_num=0 THEN
+        IF v_num = 0 THEN
             DBMS_OUTPUT.PUT_LINE('In departamentul ' || v_nume_dep || ' nu lucreaza niciun angajat.');
         ELSIF v_num = 1 THEN
             DBMS_OUTPUT.PUT_LINE('In departamentul ' || v_nume_dep || ' lucreaza un angajat.');
@@ -478,7 +478,7 @@ BEGIN
 END;
 /
 
--- 1. Pentru fiecare job (titlu – care va fi afisat o singura data) obtineti lista angajatilor (nume si salariu) care lucreaza
+-- 1. Pentru fiecare job (titlu Â– care va fi afisat o singura data) obtineti lista angajatilor (nume si salariu) care lucreaza
 -- in prezent pe jobul respectiv. Tratati cazul in care nu exista angajati care sa lucreze in prezent pe un anumit job. Rezolvati problema folosind:
 -- a. cursoare clasice
 
