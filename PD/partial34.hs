@@ -56,16 +56,8 @@ eliminateDuplicatesRec :: Eq a => [a] -> [a]
 eliminateDuplicatesRec [] = []
 eliminateDuplicatesRec [elem] = [elem]
 eliminateDuplicatesRec (x:y:rest)
-    | x == y =  eliminateDuplicatesRec rest
+    | x == y =  eliminateDuplicatesRec (x:rest)
     | otherwise = x : y : eliminateDuplicatesRec rest
-
-
-eliminateDuplicatesRec' :: Eq a => [a] -> [a]
-eliminateDuplicatesRec' [] = []
-eliminateDuplicatesRec' [x] = [x]
-eliminateDuplicatesRec' (x:y:xs) 
-    | x == y = eliminateDuplicatesRec' (x:xs)
-    | otherwise = x : y : eliminateDuplicatesRec xs
 
 
 -- Tipuri de date din enunț
