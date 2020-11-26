@@ -34,7 +34,8 @@ END;
 --2. Rezolvati exercitiul 1 folosind o functie stocata.
 CREATE OR REPLACE FUNCTION f2_dda
     (v_name employees.last_name%TYPE DEFAULT 'Bell')
-RETURN NUMBER IS
+RETURN NUMBER 
+IS
     v_salary employees.salary%TYPE;
     BEGIN 
         SELECT salary INTO v_salary
@@ -632,9 +633,10 @@ DECLARE
             SELECT employee_id BULK COLLECT INTO angajati
             FROM employees e
             WHERE e.department_id = dep#
-                AND TO_CHAR(e.hire_date, 'DAY') = ( SELECT MAX(TO_CHAR(hire_date, 'DAY'))
+                AND TO_CHAR(e.hire_date, 'DAY') IN ( SELECT MAX(TO_CHAR(hire_date, 'DAY'))
                                                     FROM employees
                                                     WHERE department_id = dep#
+                                                    GROUP BY TO_CHAR(hire_date, 'DAY')
                                                     HAVING COUNT(employee_id) = ( SELECT MAX(COUNT(employee_id))
                                                                                   FROM employees
                                                                                   WHERE department_id = dep#
@@ -642,6 +644,7 @@ DECLARE
             IF angajati.COUNT = 0 THEN
                 DBMS_OUTPUT.PUT_LINE('Nu a fost angajat intr-o zi a saptamanii niciun angajat');
             ELSE
+                v_zi_afisata := FALSE;
                 FOR i IN angajati.FIRST..angajati.LAST LOOP
                     SELECT NVL(first_name, '')||' '||last_name, TO_CHAR(hire_date, 'DAY'),
                         EXTRACT(YEAR FROM sysdate) - EXTRACT(YEAR FROM hire_date),
@@ -709,9 +712,10 @@ DECLARE
             SELECT employee_id BULK COLLECT INTO angajati
             FROM employees e
             WHERE e.department_id = dep#
-                AND TO_CHAR(e.hire_date, 'DAY') = ( SELECT MAX(TO_CHAR(hire_date, 'DAY'))
+                AND TO_CHAR(e.hire_date, 'DAY') IN ( SELECT MAX(TO_CHAR(hire_date, 'DAY'))
                                                     FROM employees
                                                     WHERE department_id = dep#
+                                                    GROUP BY TO_CHAR(hire_date, 'DAY')
                                                     HAVING COUNT(employee_id) = ( SELECT MAX(COUNT(employee_id))
                                                                                   FROM employees
                                                                                   WHERE department_id = dep#
