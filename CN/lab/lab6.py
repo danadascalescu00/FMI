@@ -20,6 +20,7 @@ P = np.identity(n)
 """
 for k in range(0, n-1):
     p = np.argmax(np.abs(U[k:,k]))
+    p = p + k
     # interschimbam liniile p si k in U, P, L
     U[[p,k]] = U[[k,p]]
     P[[p,k]] = P[[k,p]] 
