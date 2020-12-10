@@ -45,7 +45,6 @@ SET salary = salary - 100;
 
 DROP TRIGGER trig22_dda;
 
-
 -- 3. Creati un declansator care sa nu permita marirea limitei inferioare a grilei de salarizare 1, respectiv micsorarea limitei 
 -- superioare a grilei de salarizare 7, decat daca toate salariile se gasesc in intervalul dat de aceste doua valori modificate.
 -- Se va utiliza tabelul job_grades_***.
@@ -202,7 +201,7 @@ WHERE TABLE_NAME = 'V_INFO_DDA';
 --      - se adauga un angajat si departamentul acestuia (departamentul este nou);
 --      - se adauga doar un departament.
 --    j) Modificati declansatorul definit anterior astfel incat sa permita propagarea in tabelele de
---    baz? a actualizarilor realizate asupra numelui si prenumelui angajatului, respectiv asupra numelui de departament.
+--    baza a actualizarilor realizate asupra numelui si prenumelui angajatului, respectiv asupra numelui de departament.
 
 
 CREATE OR REPLACE TRIGGER trig5_dda
@@ -220,11 +219,14 @@ BEGIN
         UPDATE info_dept_dda
         SET plati = plati - :OLD.salariu
         WHERE id = :OLD.id_dept;
+        
     ELSIF INSERTING THEN
     -- adaugarea unui nou angajat in baza de date prin intermediul vizualizarii v_info_dda determina introducerea 
     -- angajatului in tabela info_emp_dda si actualizarea/introducerea de date in tabelui info_dept_dda    
-        INSERT INTO info_emp_dda
-        VALUES (:NEW.id_emp, :NEW.nume, :NEW.prenume, :NEW.salariu, :NEW.id_dept);
+        IF :NEW.id_emp <> NULL THEN
+            INSERT INTO info_emp_dda
+            VALUES (:NEW.id_emp, :NEW.nume, :NEW.prenume, :NEW.salariu, :NEW.id_dept);
+        END IF;
         
         SELECT COUNT(*) INTO id_dept_exists
         FROM info_dept_dda
@@ -234,7 +236,6 @@ BEGIN
         -- introducem un nou departament
             INSERT INTO info_dept_dda
             VALUES(:NEW.id_dept, :NEW.nume_dept, NVL(:NEW.salariu,0));
-
         ELSE
         -- departamentul exista
             UPDATE info_dept_dda
@@ -326,11 +327,13 @@ DROP TRIGGER trig5_dda;
 CREATE OR REPLACE TRIGGER trig6_dda
     BEFORE DELETE ON emp_dda
 BEGIN
-    IF USER = UPPER('grupa231') THEN
+    IF USER = UPPER('DANADASCALESCU') THEN
         RAISE_APPLICATION_ERROR(-20090, 'Nu ai voie sa stergi!');
     END IF;
 END;
 /
+
+DELETE * FROM emp_dda;
 
 DROP TRIGGER trig6_dda;
 
@@ -423,18 +426,18 @@ DROP TRIGGER trig81_dda;
 DROP TRIGGER trig82_dda;
 DROP PACKAGE package_dda;
 
-
 -- Exercitii
--- 1.  Definiti un declansator care sa permita stergerea informatiilor din tabelul dept_*** decat daca
--- utilizatorul este SCOTT. 
+-- 1.  Definiti un declansator care sa permita stergerea informatiilor din tabelul dept_*** decat daca utilizatorul este SCOTT. 
 CREATE OR REPLACE TRIGGER trig1_dda
     BEFORE DELETE ON dep_dda
 BEGIN
-    IF USER = 'SCOTT' THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Nu ai voie sa stergi');
+    IF USER <> 'SCOTT' THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Nu ai voie sa stergi!');
     END IF;
 END;
 /
+
+DELETE FROM dep_dda WHERE department_id = 30;
 
 DROP TRIGGER trig1_dda;
 
@@ -510,7 +513,7 @@ BEGIN
         WHERE id = :OLD.id_dept;
     ELSIF UPDATING ('id_dept') THEN
         UPDATE INFO_DEPT_DDA
-        SET numar = numar -1
+        SET numar = numar - 1
         WHERE id = :OLD.id_dept;
         
         UPDATE info_dept_dda
