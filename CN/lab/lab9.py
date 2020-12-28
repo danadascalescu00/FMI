@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 
 # Domeniul functiei
 left, right = -np.pi, np.pi
-print(left, right)
 
 # Functia pe care dorim sa o aproximam
 def fun(x):
