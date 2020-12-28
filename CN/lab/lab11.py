@@ -2,14 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Domeniul functiei
-left, right = -2, 2
+left, right = 2, 4
 
 # numarul de intervale
 n = 12
 
 # Functia pe care dorim sa o aproximam
 def fun(x):
-    return x**2 + 2
+    return (x-3)**2 + 2
 
 def plot_function(x_grafic, y_grafic):
     plt.figure(0)
