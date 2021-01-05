@@ -1,0 +1,18 @@
+﻿@model ProiectDAW.Models.UserViewModel
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Users", routeValues: new { id = Model.User.Id }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.HiddenFor( m => m.User.Id)
+    <br />
+
+    @Html.LabelFor(m => m.RoleName, "Role:")
+    <br />
+    @Html.EditorFor(m => m.RoleName, new { htmlAttributes = new { @class = "form-control "} })
+    <br />
+    <br />
+
+    <button class="btn btn-sm btn-success" type="submit">Save Changes</button>
+}

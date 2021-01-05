@@ -1,0 +1,20 @@
+﻿@model ProiectDAW.Models.ApplicationUser
+
+<h2>Details</h2>
+
+<br />
+@Html.LabelFor(u => u.UserName, "Username:")
+<br />
+@Html.DisplayFor(u => u.UserName)
+<br />
+<br />
+
+@Html.LabelFor(u => u.Email, "Email:")
+<br />
+@Html.DisplayFor(u => u.Email)
+<br />
+<br />
+
+<label>Role:</label>
+<p>@ViewBag.UserRole</p>
+<p>@Html.ActionLink("Edit user role", "Edit", new { id = Model.Id }) </p>
