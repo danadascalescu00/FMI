@@ -15,8 +15,7 @@ namespace ProiectDAW.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
+            ViewBag.Message = "We’ve learned the hard way how to fundraise the easy way.";
             return View();
         }
 
