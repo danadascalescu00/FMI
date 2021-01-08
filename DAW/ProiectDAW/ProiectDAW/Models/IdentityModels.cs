@@ -27,6 +27,7 @@ namespace ProiectDAW.Models
         }
 
         public DbSet<Organisation> Organisations { get; set; }
+        public DbSet<ContactInfo> ContactInfos { get; set; }
 
         public static ApplicationDbContext Create()
         {
@@ -38,44 +39,55 @@ namespace ProiectDAW.Models
     {
         protected override void Seed(ApplicationDbContext context)
         {
+            ContactInfo contactInfo1 = new ContactInfo
+            {
+                Email = "asociatia@tasuleasasocial.ro",
+                PhoneNumber = "+40 758 745 767"
+            };
+
+            ContactInfo contactInfo2 = new ContactInfo
+            {
+                Email = "aiesec@aiesec.ro"
+            };
+
+            context.ContactInfos.Add(contactInfo1);
+            context.ContactInfos.Add(contactInfo2);
+
             Organisation organisation1 = new Organisation
             {
-                OrganisationId = "E12332145",
                 Name = "Tasuleasa Social",
-                ShortDescription = "Ne-am propus să schimbăm mentalitățile celor din jurul nostru " +
-                "și să arătăm că tinerii doresc să se implice în rezolvarea problemelor sociale."
+                ShortDescription = "We set out to change the mindsets of those around us." +
+                 "and to show that young people want to get involved in solving social problems.",
+                Description = "For the Tășuleasa Social Association, the most important values are volunteering, " +
+                "respect for nature, educating young people through practical examples and developing civic courage " +
+                "among young people through their involvement in social and environmental issues.",
+                ContactInfo = contactInfo1
             };
             
             Organisation organisation2 = new Organisation
             {
-                OrganisationId = "E12332146",
                 Name = "AIESEC",
                 ShortDescription = "We are a youth leadership movement." +
-                " We are passionately driven by one cause, peace and fulfillment of humankind's potential."
+                " We are passionately driven by one cause, peace and fulfillment of humankind's potential.",
+                Description = "AIESEC is a non-governmental not-for-profit organisation in consultative status with " +
+                "the United Nations Economic and Social Council (ECOSOC), affiliated with the UN DPI, member of " +
+                "ICMYO, and is recognized by UNESCO. AIESEC International Inc. is registered as a Not-for-profit " +
+                "Organisation under the Canadian Not-for-profit Corporations Act - 2018-02-08, Corporation Number: " +
+                "1055154-6 and Quebec Business Number (NEQ) 1173457178 in Montreal, Quebec, Canada.",
+                ContactInfo = contactInfo2
             };            
             
-            Organisation organisation3 = new Organisation
+           Organisation organisation3 = new Organisation
             {
-                OrganisationId = "E18932146",
-                Name = "WWFRomania",
-                ShortDescription = "În România, WWF lucrează din anul 2006 pentru protejarea mediului sălbatic din " +
-                "Munții Carpați și din lungul Dunării: arii protejate, păduri, urși bruni, zimbri, Delta Dunării, " +
-                "sturioni. La toate acestea se adaugă stimularea tranziției spre economia verde și un program de " +
-                "educație de mediu adresat tinerilor."
-            };            
-            
-           Organisation organisation4 = new Organisation
-            {
-                OrganisationId = "E12339046",
                 Name = "Cercetașii României",
-                ShortDescription = "Cercetășia este o mișcare internațională de tineri creată cu scopul de a ajuta " +
-                "tinerii în dezvoltarea lor fizică, mentală și spirituală, pentru a deveni membri constructivi ai societății. "
+                ShortDescription = "National Organisation \"Cercetașii României\" is the main scout organization in Romania.",
+                Description = "Scouting is an international youth movement created to help " +
+                "young people in their physical, mental and spiritual development, to become constructive members of society. "
            };
 
             context.Organisations.Add(organisation1);
             context.Organisations.Add(organisation2);
             context.Organisations.Add(organisation3);
-            context.Organisations.Add(organisation4);
 
             context.SaveChanges();
             base.Seed(context);

@@ -176,6 +176,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ContactInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Organisation.cs" />
@@ -464,6 +465,7 @@
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Organisation\Index.cshtml" />
+    <Content Include="Views\Organisation\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

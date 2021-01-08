@@ -1,0 +1,28 @@
+﻿@model ProiectDAW.Models.Organisation
+
+@{
+    ViewBag.Title = "Details";
+    var emptyDescriptionMsg = "This organisation has no description!";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@Html.Label("Name", "Name:")
+<br />
+<p>@Model.Name</p>
+<br />
+
+@Html.Label("Description", "Description:")
+<br />
+
+<div class="panel-body">
+    @if(Model.Description.IsEmpty())
+    {
+        <p>@emptyDescriptionMsg</p>
+    }
+    else
+    {
+        @Html.DisplayFor(m => m.Description)
+    }
+</div>

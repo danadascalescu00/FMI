@@ -15,6 +15,11 @@
                 <div class="card-body">
                     <h3 class="card-title">@organisation.Name</h3>
                     <p class="card-text">@organisation.ShortDescription</p>
+                    @using (Html.BeginForm(actionName: "Details", controllerName: "Organisation",
+                        method: FormMethod.Get, routeValues: new { id = organisation.OrganisationId }))
+                    {
+                        <button class="btn btn-info">Details</button>
+                    }
                     <br />
                 </div>
             </div>

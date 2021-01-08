@@ -20,5 +20,19 @@ namespace ProiectDAW.Controllers
 
             return View();
         }
+
+        public ActionResult Details(int? id)
+        {
+            if(id.HasValue)
+            {
+                Organisation organisation = dbContext.Organisations.Find(id);
+                if(organisation != null)
+                {
+                    return View(organisation);
+                }
+                return HttpNotFound("Couldn't find the organisation with id " + id + "!");
+            }
+            return HttpNotFound("Missing organisation id parameter!");
+        }
     }
 }
