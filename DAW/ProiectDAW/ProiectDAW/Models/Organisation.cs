@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -28,6 +29,7 @@ namespace ProiectDAW.Models
         public virtual ContactInfo ContactInfo { get; set; }
 
         // one-to-many relationship
+        [ForeignKey("OrganisationRefId")]
         public virtual ICollection<Project> Projects { get; set; }
 
         // many-to-many relationship

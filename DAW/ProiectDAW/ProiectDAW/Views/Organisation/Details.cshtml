@@ -17,7 +17,7 @@
 <br />
 
 <div class="panel-body">
-    @if(Model.Description.IsEmpty())
+    @if (Model.Description.IsEmpty())
     {
         <p>@emptyDescriptionMsg</p>
     }
@@ -26,3 +26,30 @@
         @Html.DisplayFor(m => m.Description)
     }
 </div>
+<br />
+
+@if (Model.Orientations.Count > 0)
+{<strong>Orientations:</strong>
+    <ul class="list-group">
+        <br />
+        @foreach (var orientation in Model.Orientations)
+        {
+            <li class="list-group-item list-group-item-secondary">@orientation.Name</li>
+        }
+    </ul>
+}
+
+<br />
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Organisation", method: FormMethod.Get, routeValues: new { id = Model.OrganisationId }))
+{
+    <button style="margin-right:12px;" class="btn btn-primary col-lg-1" type="submit">Update</button>
+}
+
+@using (Html.BeginForm(actionName: "Delete", controllerName: "Organisation", method: FormMethod.Post, routeValues: new { id = Model.OrganisationId }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    <button class="btn btn-secondary col-lg-1" type="submit">Delete</button>
+}
+
+<br />

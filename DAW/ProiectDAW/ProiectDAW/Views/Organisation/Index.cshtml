@@ -17,15 +17,6 @@
                     <div class="card-body">
                         <h3 class="card-title">@organisation.Name</h3>
                         <p class="card-text">@organisation.ShortDescription</p>
-                        @if (organisation.Orientations.Count > 0)
-                        {   <strong>Orientations:</strong>
-                            <ul class="list-group list-group-flush">
-                               @foreach (var orientation in organisation.Orientations)
-                               {
-                                   <li class="list-group-item">@orientation.Name</li>
-                               }
-                            </ul>
-                        }
                         @using (Html.BeginForm(actionName: "Details", controllerName: "Organisation",
                             method: FormMethod.Get, routeValues: new { id = organisation.OrganisationId }))
                         {
@@ -38,3 +29,10 @@
         }
     </div>
 </div>
+
+@if (ViewContext.HttpContext.User.IsInRole("Admin"))
+{
+    @Html.ActionLink("Add organisation", "New")
+}
+
+

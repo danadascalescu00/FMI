@@ -1,0 +1,37 @@
+﻿@model ProiectDAW.Models.Organisation
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Organisation"))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.HiddenFor(o => o.OrganisationId)
+    <br />
+
+    @Html.LabelFor(o => o.Name, "NGO's name:")
+    <br />
+    @Html.EditorFor(o => o.Name, new { htmlAttributes = new { @class = "form-control " } })
+    @Html.ValidationMessageFor(o => o.Name, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.LabelFor(o => o.ShortDescription, "Short description:")
+    <br />
+    @Html.TextAreaFor(o => o.ShortDescription, new { htmlAttributes = new { @class = "fomr-control", @rows="6", @cols ="256" } })
+    @Html.ValidationMessageFor(o => o.ShortDescription, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.LabelFor(o => o.Description, "Short description:")
+    <br />
+    @Html.TextAreaFor(o => o.Description, new { htmlAttributes = new { @class = "fomr-control" , @rows = "15", @cols = "256" } })
+    @Html.ValidationMessageFor(o => o.Description, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    <button class="btn btn-secondary" type="submit">Update</button>
+}

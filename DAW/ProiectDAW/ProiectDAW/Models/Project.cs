@@ -36,7 +36,7 @@ namespace ProiectDAW.Models
 
         // many-to-one relationship
         [Column("Organisation_Id")]
-        public int OrganisationId { get; set; }
+        public int OrganisationRefId { get; set; }
         public virtual Organisation Organisation { get; set; }
     }
 }

@@ -468,6 +468,8 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Organisation\Index.cshtml" />
     <Content Include="Views\Organisation\Details.cshtml" />
+    <Content Include="Views\Organisation\New.cshtml" />
+    <Content Include="Views\Organisation\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
