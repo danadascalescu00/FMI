@@ -15,7 +15,7 @@ namespace ProiectDAW.Controllers
         // GET: Organisation
         public ActionResult Index()
         {
-            List<Organisation> organisations = dbContext.Organisations.ToList();
+            List<Organisation> organisations = dbContext.Organisations.Include("Orientations").ToList();
             ViewBag.Organisations = organisations;
 
             return View();

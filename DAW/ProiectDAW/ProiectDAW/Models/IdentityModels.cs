@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -28,6 +29,8 @@ namespace ProiectDAW.Models
 
         public DbSet<Organisation> Organisations { get; set; }
         public DbSet<ContactInfo> ContactInfos { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Orientation> Orientations { get; set; }
 
         public static ApplicationDbContext Create()
         {
@@ -45,13 +48,36 @@ namespace ProiectDAW.Models
                 PhoneNumber = "+40 758 745 767"
             };
 
-            ContactInfo contactInfo2 = new ContactInfo
+            context.ContactInfos.Add(contactInfo1);
+
+            Orientation orientation1 = new Orientation { Name = "Charities" };
+            Orientation orientation2 = new Orientation { Name = "Service" };
+            Orientation orientation3 = new Orientation { Name = "Participation" };
+            Orientation orientation4 = new Orientation { Name = "Empowerment" };
+
+            context.Orientations.Add(orientation1);
+            context.Orientations.Add(orientation2);
+            context.Orientations.Add(orientation3);
+            context.Orientations.Add(orientation4);
+
+            Project project1 = new Project
             {
-                Email = "aiesec@aiesec.ro"
+                Name = "Școala de mers pe munte",
+                ShortDescription = "Școala de Mers pe Munte este un proiect destinat persoanelor adulte din România " +
+                    "și Republica Moldova, în cadrul căruia se prezintă cunoştinţe teoretice și practice în mod " +
+                    "structurat. Proiectul contribuie, în acest fel, la valorificarea potenţialului turistic al zonei: " +
+                    "Munţii Călimani îi întâmpinã pe turişti cu locuri şi peisaje spectaculoase, cu un parc naţional, " +
+                    "o amplă reţea de trasee turistice şi localnici primitori.",
+                Description = "Școala de Mers pe Munte te învață să asculți muntele! Proiectul continuă pentru " +
+                    "al 5-lea an consecutiv cu încă 8 grupe. Vom selecta 200 de persoane și vom merge împreună pe munte " +
+                    "la peste 2000m altitudine. În cele 4 ediții desfășurate, 1000 de persoane începătoare au " +
+                    "˝absolvit˝ cursurile proiectului, iar majoritatea au caracterizat școala astfel : inspirațională, " +
+                    "educativă, extraordinară, emoționantă, plină de energie sau prietenoasă.",
+                ProjectType = LevelOfOperation.National
             };
 
-            context.ContactInfos.Add(contactInfo1);
-            context.ContactInfos.Add(contactInfo2);
+            context.Projects.Add(project1);
+
 
             Organisation organisation1 = new Organisation
             {
@@ -61,33 +87,50 @@ namespace ProiectDAW.Models
                 Description = "For the Tășuleasa Social Association, the most important values are volunteering, " +
                 "respect for nature, educating young people through practical examples and developing civic courage " +
                 "among young people through their involvement in social and environmental issues.",
-                ContactInfo = contactInfo1
+                ContactInfo = contactInfo1,
+                Projects = new List<Project> { project1 },
+                Orientations = new List<Orientation> { orientation1, orientation2, orientation3 }
             };
             
-            Organisation organisation2 = new Organisation
-            {
-                Name = "AIESEC",
-                ShortDescription = "We are a youth leadership movement." +
-                " We are passionately driven by one cause, peace and fulfillment of humankind's potential.",
-                Description = "AIESEC is a non-governmental not-for-profit organisation in consultative status with " +
-                "the United Nations Economic and Social Council (ECOSOC), affiliated with the UN DPI, member of " +
-                "ICMYO, and is recognized by UNESCO. AIESEC International Inc. is registered as a Not-for-profit " +
-                "Organisation under the Canadian Not-for-profit Corporations Act - 2018-02-08, Corporation Number: " +
-                "1055154-6 and Quebec Business Number (NEQ) 1173457178 in Montreal, Quebec, Canada.",
-                ContactInfo = contactInfo2
-            };            
             
            Organisation organisation3 = new Organisation
             {
                 Name = "Cercetașii României",
                 ShortDescription = "National Organisation \"Cercetașii României\" is the main scout organization in Romania.",
                 Description = "Scouting is an international youth movement created to help " +
-                "young people in their physical, mental and spiritual development, to become constructive members of society. "
+                    "young people in their physical, mental and spiritual development, to become constructive members of society.",
+                Orientations = new List<Orientation> { orientation3, orientation4 }
+                
            };
 
+            Organisation organisation4 = new Organisation
+            {
+                Name = "WWF Romania",
+                ShortDescription = "The World Wide Fund for Nature is a non-governmental organization for nature " +
+                    "conservation and ecological restoration of the natural environment.",
+                Description = "Suntem cu toții conectați la ADN-ul planetei. Natura este sursa noastră fundamentală " +
+                    "pentru viață. Dar, în prezent, se degradează într-un ritm accelerat și noi, oamenii, suntem " +
+                    "responsabili pentru această situație: populațiile de specii sălbatice s-au înjumătățit în doar " +
+                    "40 de ani, la fel s-a redus și calitatea râurilor și a pădurilor. Efectele dezastruoase ale " +
+                    "schimbărilor climatice sunt din ce în ce mai vizibile – fenomene meteo extreme, care cauzează " +
+                    "dezastre naturale, lasă comunități întregi fără apă de băut, hrană și adapost, forțând din ce" +
+                    " în ce mai mulți oameni să migreze." + System.Environment.NewLine +
+                    "Modul în care trăim pune o presiune mult prea mare pe natură: consumăm mai mult decât " +
+                    "natura ne poate oferi într - un an, consumăm resursele naturale mai repede decât acestea se pot " +
+                    "regenera. Viața noastră devine astfel din ce în ce mai nesigură și nesănătoasă, iar bunăstarea," +
+                    " sănătatea, dezvoltarea generațiilor viitoare este pusa în pericol." + System.Environment.NewLine +
+                    " De aceea ne propunem să oprim degradarea Planetei, protejând biodiversitata – " +
+                    "toate speciile si ecosistemele care fac Pâmântul locuibil pentru oameni. Ne propunem " +
+                    "să construim un viitor în care oamenii trăiesc și se dezvoltă în armonie cu natura. " +
+                    "Dacă vom acea succes, în 30 de ani declinul naturii va fi oprit; ecosistemele vor fi " +
+                    "reziliente și vor exista mecanisme sociale, economice și politice care să asigure folosirea " +
+                    "responsabilă a resurselor, iar poluarea va fi redusă în limite sigure pentru viață.",
+                Orientations = new List<Orientation> { orientation1, orientation4 }
+            };
+
             context.Organisations.Add(organisation1);
-            context.Organisations.Add(organisation2);
             context.Organisations.Add(organisation3);
+            context.Organisations.Add(organisation4);
 
             context.SaveChanges();
             base.Seed(context);
