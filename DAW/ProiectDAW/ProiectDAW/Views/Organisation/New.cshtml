@@ -15,6 +15,14 @@
         <br />
         <br />
 
+        @Html.Label("OrganisationType", "Level of operation:")
+        <br />
+        @Html.DropDownListFor(o => o.OrganisationTypeId, new SelectList(Model.OrganisationTypeList, "Value", "Text"),
+        "Choose a level of operation", new { @class = "form-control" })
+        @Html.ValidationMessageFor(o => o.OrganisationTypeId, "", new { @class = "text-danger" })
+        <br />
+        <br />
+
         @Html.Label("ShortDescription", "Short descritption:")
         <br />
         @Html.TextArea("ShortDescription", null, new { placeholder = "Type in the short description...", @class = "text-control", @rows = "6", @cols = "256" })

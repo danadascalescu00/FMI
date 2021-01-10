@@ -39,6 +39,7 @@ namespace ProiectDAW.Controllers
         {
             Organisation organisation = new Organisation();
             organisation.Orientations = new List<Orientation>();
+            organisation.OrganisationTypeList = GetAllOrganisationTypes();
             return View(organisation);
         }
 
@@ -47,6 +48,7 @@ namespace ProiectDAW.Controllers
         {
             try
             {
+                organisationRequest.OrganisationTypeList = GetAllOrganisationTypes();
                 if(ModelState.IsValid)
                 {
                     dbContext.Organisations.Add(organisationRequest);
@@ -72,6 +74,8 @@ namespace ProiectDAW.Controllers
                 {
                     return HttpNotFound("Couldn't find the organisation with id " + id.ToString() + "!");
                 }
+
+                organisation.OrganisationTypeList = GetAllOrganisationTypes();
                 return View(organisation);
             }
             return HttpNotFound("Missing organisation id parameter!");
@@ -82,6 +86,7 @@ namespace ProiectDAW.Controllers
         {
             try
             {
+                organisationRequest.OrganisationTypeList = GetAllOrganisationTypes();
                 if (ModelState.IsValid)
                 {
                     Organisation organisation = dbContext.Organisations
@@ -115,6 +120,23 @@ namespace ProiectDAW.Controllers
                 return RedirectToAction("Index");
             }
             return HttpNotFound("Couldn't find the organisation with id" + id.ToString() + "!");
+        }
+
+        [NonAction]
+        public IEnumerable<SelectListItem> GetAllOrganisationTypes()
+        {
+            var selectedList = new List<SelectListItem>();
+            foreach (var levelOfOperation in dbContext.OrganisationTypes.ToList())
+            {
+                selectedList.Add(new SelectListItem 
+                { 
+                    Value = levelOfOperation.OrganisationTypeId.ToString(),
+                    Text = levelOfOperation.Name
+                });
+
+            }
+
+            return selectedList;
         }
     }
 }

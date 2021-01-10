@@ -31,6 +31,7 @@ namespace ProiectDAW.Models
         public DbSet<ContactInfo> ContactInfos { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Orientation> Orientations { get; set; }
+        public DbSet<OrganisationType> OrganisationTypes { get; set; }
 
         public static ApplicationDbContext Create()
         {
@@ -60,6 +61,18 @@ namespace ProiectDAW.Models
             context.Orientations.Add(orientation3);
             context.Orientations.Add(orientation4);
 
+            OrganisationType organisationType1 = new OrganisationType { OrganisationTypeId = 10, Name = "Comunity Based" };
+            OrganisationType organisationType2 = new OrganisationType { OrganisationTypeId = 11, Name = "City Wide" };
+            OrganisationType organisationType3 = new OrganisationType { OrganisationTypeId = 12, Name = "Regional" };
+            OrganisationType organisationType4 = new OrganisationType { OrganisationTypeId = 13, Name = "National" };
+            OrganisationType organisationType5 = new OrganisationType { OrganisationTypeId = 14, Name = "International" };
+
+            context.OrganisationTypes.Add(organisationType1);
+            context.OrganisationTypes.Add(organisationType2);
+            context.OrganisationTypes.Add(organisationType3);
+            context.OrganisationTypes.Add(organisationType4);
+            context.OrganisationTypes.Add(organisationType5);
+
             Project project1 = new Project
             {
                 Name = "Școala de mers pe munte",
@@ -72,8 +85,7 @@ namespace ProiectDAW.Models
                     "al 5-lea an consecutiv cu încă 8 grupe. Vom selecta 200 de persoane și vom merge împreună pe munte " +
                     "la peste 2000m altitudine. În cele 4 ediții desfășurate, 1000 de persoane începătoare au " +
                     "˝absolvit˝ cursurile proiectului, iar majoritatea au caracterizat școala astfel : inspirațională, " +
-                    "educativă, extraordinară, emoționantă, plină de energie sau prietenoasă.",
-                ProjectType = LevelOfOperation.National
+                    "educativă, extraordinară, emoționantă, plină de energie sau prietenoasă."
             };
 
             context.Projects.Add(project1);
@@ -89,7 +101,8 @@ namespace ProiectDAW.Models
                 "among young people through their involvement in social and environmental issues.",
                 ContactInfo = contactInfo1,
                 Projects = new List<Project> { project1 },
-                Orientations = new List<Orientation> { orientation1, orientation2, orientation3 }
+                Orientations = new List<Orientation> { orientation1, orientation2, orientation3 },
+                OrganisationTypeId = organisationType4.OrganisationTypeId
             };
             
             
@@ -99,8 +112,8 @@ namespace ProiectDAW.Models
                 ShortDescription = "National Organisation \"Cercetașii României\" is the main scout organization in Romania.",
                 Description = "Scouting is an international youth movement created to help " +
                     "young people in their physical, mental and spiritual development, to become constructive members of society.",
-                Orientations = new List<Orientation> { orientation3, orientation4 }
-                
+                Orientations = new List<Orientation> { orientation3, orientation4 },
+                OrganisationTypeId = organisationType4.OrganisationTypeId
            };
 
             Organisation organisation4 = new Organisation
@@ -125,7 +138,8 @@ namespace ProiectDAW.Models
                     "Dacă vom acea succes, în 30 de ani declinul naturii va fi oprit; ecosistemele vor fi " +
                     "reziliente și vor exista mecanisme sociale, economice și politice care să asigure folosirea " +
                     "responsabilă a resurselor, iar poluarea va fi redusă în limite sigure pentru viață.",
-                Orientations = new List<Orientation> { orientation1, orientation4 }
+                Orientations = new List<Orientation> { orientation1, orientation4 },
+                OrganisationTypeId = organisationType4.OrganisationTypeId
             };
 
             context.Organisations.Add(organisation1);

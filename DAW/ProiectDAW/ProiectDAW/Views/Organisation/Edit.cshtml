@@ -19,16 +19,24 @@
     <br />
     <br />
 
+    @Html.Label("OrganisationType", "Level of operation:")
+    <br />
+    @Html.DropDownListFor(o => o.OrganisationTypeId, new SelectList(Model.OrganisationTypeList, "Value", "Text"), 
+    "Choose a level of operation", new { @class = "form-control" })
+    @Html.ValidationMessageFor(o => o.OrganisationTypeId, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
     @Html.LabelFor(o => o.ShortDescription, "Short description:")
     <br />
-    @Html.TextAreaFor(o => o.ShortDescription, new { htmlAttributes = new { @class = "fomr-control", @rows="6", @cols ="256" } })
+    @Html.TextAreaFor(o => o.ShortDescription, new { htmlAttributes = new { @class = "fomr-control", @rows = "6", @cols = "256" } })
     @Html.ValidationMessageFor(o => o.ShortDescription, "", new { @class = "text-danger" })
     <br />
     <br />
 
     @Html.LabelFor(o => o.Description, "Short description:")
     <br />
-    @Html.TextAreaFor(o => o.Description, new { htmlAttributes = new { @class = "fomr-control" , @rows = "15", @cols = "256" } })
+    @Html.TextAreaFor(o => o.Description, new { htmlAttributes = new { @class = "fomr-control", @rows = "15", @cols = "256" } })
     @Html.ValidationMessageFor(o => o.Description, "", new { @class = "text-danger" })
     <br />
     <br />

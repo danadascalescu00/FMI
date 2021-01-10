@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ProiectDAW.Models
 {
@@ -28,12 +29,22 @@ namespace ProiectDAW.Models
         // one-to-one relationship
         public virtual ContactInfo ContactInfo { get; set; }
 
-        // one-to-many relationship
+        // many-to-one relationship
         [ForeignKey("OrganisationRefId")]
         public virtual ICollection<Project> Projects { get; set; }
 
         // many-to-many relationship
         public virtual ICollection<Orientation> Orientations { get; set; }
+
+        // one-to-many
+        public int OrganisationTypeId { get; set; }
+
+        [ForeignKey("OrganisationTypeId")]
+        public virtual OrganisationType OrganisationType { get; set; }
+
+        [NotMapped]
+        public IEnumerable<SelectListItem> OrganisationTypeList { get; set; }
+
 
     }
 }

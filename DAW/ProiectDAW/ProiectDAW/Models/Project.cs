@@ -8,15 +8,6 @@ using ProiectDAW.Models;
 
 namespace ProiectDAW.Models
 {
-    public enum LevelOfOperation
-    {
-        ComunityBased,
-        CityWide,
-        Regional,
-        National,
-        International
-    }
-
     public class Project
     {
         public int ProjectId { get; set; }
@@ -31,8 +22,6 @@ namespace ProiectDAW.Models
         [MinLength(10, ErrorMessage = "The description cannot be less than 10 characters!")]
         [MaxLength(2500, ErrorMessage = "The description cannot be more than 200 characters!")]
         public string Description { get; set; }
-
-        public LevelOfOperation ProjectType { get; set; }
 
         // many-to-one relationship
         [Column("Organisation_Id")]
