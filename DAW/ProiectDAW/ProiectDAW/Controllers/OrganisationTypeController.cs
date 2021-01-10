@@ -57,6 +57,7 @@ namespace ProiectDAW.Controllers
             return HttpNotFound("Missing id parameter!");
         }
 
+        [HttpPut]
         public ActionResult Edit(int id, OrganisationType organisationTypeRequest)
         {
             try

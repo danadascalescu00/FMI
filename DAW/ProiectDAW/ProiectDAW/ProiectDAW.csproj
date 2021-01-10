@@ -478,10 +478,12 @@
     <Content Include="Views\Project\Details.cshtml" />
     <Content Include="Views\Project\Edit.cshtml" />
     <Content Include="Views\Project\New.cshtml" />
+    <Content Include="Views\OrganisationType\Index.cshtml" />
+    <Content Include="Views\OrganisationType\New.cshtml" />
+    <Content Include="Views\OrganisationType\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\OrganisationType\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

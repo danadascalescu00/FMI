@@ -16,7 +16,13 @@
 
 @Html.Label("OrganisationType", "Level of operation:")
 <br />
-<p>@Model.OrganisationType.Name</p>
+<p style="margin-left: 2px; margin-bottom: 0px;">
+    @Model.OrganisationType.Name 
+
+</p>
+<p style="margin-left: 2px; margin-top:0px; padding-top:1px;">
+    @Html.ActionLink(linkText: "View all levels of operation", actionName: "Index", controllerName: "OrganisationType")
+</p>
 <br />
 
 

@@ -1,0 +1,18 @@
+﻿@model ProiectDAW.Models.OrganisationType
+@{
+    ViewBag.Title = "Add an organisation type(level of operation";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "OrganisationType", method: FormMethod.Post))
+{
+    @Html.LabelFor(ot => ot.Name, "Level of operation:")
+    <br />
+    @Html.TextBoxFor(ot => ot.Name, null, new { placeholder = "Type in the organisation type(level of operation)", @class = "form-control" })
+    @Html.ValidationMessageFor(ot => ot.Name, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    <button class="btn btn-success" type="submit">Add</button>
+}
