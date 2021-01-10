@@ -26,6 +26,13 @@
     <br />
     <br />
 
+    @Html.LabelFor(o => o.RegistrationCode, "NGO's registration number:")
+    <br />
+    @Html.EditorFor(o => o.RegistrationCode, new { htmlAttributes = new { @class = "form-control " } })
+    @Html.ValidationMessageFor(o => o.RegistrationCode, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
     @Html.Label("OrganisationType", "Level of operation:")
     <br />
     @Html.DropDownListFor(o => o.OrganisationTypeId, new SelectList(Model.OrganisationTypeList, "Value", "Text"),

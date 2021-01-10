@@ -11,6 +11,7 @@ namespace ProiectDAW.Models
 {
     public class Organisation
     {
+        [Index("OrganisationId_Index", 1)]
         public int OrganisationId { get; set; }
 
         [Required]
@@ -24,7 +25,9 @@ namespace ProiectDAW.Models
             ErrorMessage = "This is not a valid date! \nValid date formats: dd/mm/yyyy  dd.mm.yyyy dd-mm-yy")]
         public string RegistrationDate { get; set; }
 
-        [RegistrationCodeValidator]
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(50)]
+        [Index("RegistrationCode_Index", 2, IsUnique = true)]
         public string RegistrationCode { get; set; }
 
         [Required]

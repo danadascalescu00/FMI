@@ -32,8 +32,8 @@ namespace ProiectDAW.Models.MyValidator
             if (!regex.IsMatch(registrationCode))
                 return new ValidationResult("This is not a valid format for registration code(PIC)!");
 
-            if (!IsUnique(registrationCode))
-                return new ValidationResult("Registration code(PIC) must be unique!");
+            //if (!IsUnique(registrationCode))
+              //  return new ValidationResult("Registration code(PIC) must be unique!");
 
             string dd = registrationCode.Substring(1, 2);
             string mm = registrationCode.Substring(3, 2);
