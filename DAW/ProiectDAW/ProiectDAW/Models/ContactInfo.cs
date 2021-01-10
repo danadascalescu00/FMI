@@ -16,6 +16,7 @@ namespace ProiectDAW.Models
             ErrorMessage = "This is not a valid phone number")]
         public string PhoneNumber { get; set; }
 
+        [Required]
         [RegularExpression(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$",
             ErrorMessage = "This is not a valid email address")]
         public string Email { get; set; }

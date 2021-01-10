@@ -16,6 +16,7 @@ namespace ProiectDAW.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
         [MinLength(10, ErrorMessage = "The short description cannot be less than 10 characters!")]
         [MaxLength(500, ErrorMessage = "The short description cannot be more than 200 characters!")]
         public string ShortDescription { get; set; }
