@@ -76,19 +76,67 @@ namespace ProiectDAW.Models
             Project project1 = new Project
             {
                 Name = "Școala de mers pe munte",
-                ShortDescription = "Școala de Mers pe Munte este un proiect destinat persoanelor adulte din România " +
-                    "și Republica Moldova, în cadrul căruia se prezintă cunoştinţe teoretice și practice în mod " +
-                    "structurat. Proiectul contribuie, în acest fel, la valorificarea potenţialului turistic al zonei: " +
-                    "Munţii Călimani îi întâmpinã pe turişti cu locuri şi peisaje spectaculoase, cu un parc naţional, " +
-                    "o amplă reţea de trasee turistice şi localnici primitori.",
-                Description = "Școala de Mers pe Munte te învață să asculți muntele! Proiectul continuă pentru " +
-                    "al 5-lea an consecutiv cu încă 8 grupe. Vom selecta 200 de persoane și vom merge împreună pe munte " +
-                    "la peste 2000m altitudine. În cele 4 ediții desfășurate, 1000 de persoane începătoare au " +
-                    "˝absolvit˝ cursurile proiectului, iar majoritatea au caracterizat școala astfel : inspirațională, " +
-                    "educativă, extraordinară, emoționantă, plină de energie sau prietenoasă."
+                ShortDescription = "\"Școala de Mers pe Munte\" is a project for adults in Romania and the Republic " +
+                    "of Moldova, in which theoretical and practical knowledge is presented in a structured way. " +
+                    "The project contributes, in this way, to capitalizing on the tourist potential of the area: " +
+                    "the Călimani Mountains welcome tourists with spectacular places and landscapes, with a national" +
+                    " park, a wide network of tourist routes and welcoming locals.",
+                Description = "Școala de Mers pe Munte teaches you to listen to the mountain! The project continues for" +
+                    "for the 5th consecutive year with 8 more groups. We will select 200 people and we will go " +
+                    "together on the mountain at over 2000m altitude. In the 4 editions, 1000 beginners \"graduated\"" +
+                    " the project courses, and most characterized the school as follows: inspirational, educational, " +
+                    "extraordinary, emotional, full of energy or friendly."
             };
 
+            Project project2 = new Project
+            {
+                Name = "Camionul de Craciun",
+                ShortDescription = "We started by giving gifts to needy children in the early years, then gradually " +
+                "turned into an educational action, through which thousands of children learned to receive, " +
+                "to pass on and especially to do something for the community and the place in which they live " +
+                "through projects conceived by them.",
+                Description = "The Tasuleasa Social Association has grown a lot with this action, and now at the 15th " +
+                    "edition it will be the biggest Truck we have ever organized, 25,191 children that we will visit, " +
+                    "that is 21 trucks." + System.Environment.NewLine + " We started by giving gifts to needy children in " +
+                    "the early years, then gradually turned into an educational action, through which thousands of " +
+                    "children learned to receive, to pass on and especially to do something for the community and the" +
+                    " place. in which they live through projects conceived by them. " +
+                    "This is how \"Good day!\" Little Volunteers' Day\" which is eagerly awaited by them as the " +
+                    "Christmas Truck. This year, the Trucks will go on December 28 and 29 in 5 counties, where in" +
+                    " addition to Tasuleasa Social volunteers, numerous educators, teachers, professors, gendarmes," +
+                    " firefighters and police will be volunteers of the Christmas Truck in an excellent model of " +
+                    "collaboration.One of the trucks will go in January to the Republic of Moldova to Glodeni, " +
+                    "a district twinned with Bistrita - Nasaud County."
+            };
+
+            Project project3 = new Project
+            {
+                Name = "Via Maria Theresia",
+                ShortDescription = "The Via Maria Theresia project is designed as an example of good practice " +
+                "for mountain competitions. The route has a length of 42,195 km and will remain a constant marathon, " +
+                "mountain biking and hiking, open in summer or winter, day or night, for all those interested.",
+                Description = "Via Maria Theresia is a historic road located in the Călimani mountains, built " +
+                    "hundreds of years ago, in order to support the border guard troops of the Austro-Hungarian Empire " +
+                    "with weapons and food." + System.Environment.NewLine + System.Environment.NewLine +
+                    "Currently, Maria Theresia's road partially overlaps with a rather poorly signposted tourist " +
+                    "route, therefore very rarely traveled by tourists. The few hikers who dare to cross it do not " +
+                    "know that their road, which connects Bistrița-Năsăud County with Suceava County, once connected " +
+                    "Transylvania with Bucovina."
+            };
+
+            //Project project4 = new Project
+            //{
+                //Name = "Pădurea Transilvania 7.0",
+              //  ShortDescription = "Așteptată cu nerăbdare de mulți, pregătim acțiunea de plantare Pădurea " +
+            //        "Transilvania 5.0! Banca Transilvania, partenerul nostru de cursă lungă în acțiuni de împădurire " +
+            //        "ne însoțit din nou la o plantare marca Pădurea Transilvania, adică mare, de 10 hectare. " + System.Environment.NewLine +
+            //        "Locul activității este unul cunoscut deja veteranilor de plantare cu Tășu, și anume Sânmihaiu de Câmpie, județul Bistrița - Năsăud."
+            //};
+
             context.Projects.Add(project1);
+            context.Projects.Add(project2);
+            context.Projects.Add(project3);
+            //context.Projects.Add(project4);
 
 
             Organisation organisation1 = new Organisation
@@ -100,7 +148,7 @@ namespace ProiectDAW.Models
                 "respect for nature, educating young people through practical examples and developing civic courage " +
                 "among young people through their involvement in social and environmental issues.",
                 ContactInfo = contactInfo1,
-                Projects = new List<Project> { project1 },
+                Projects = new List<Project> { project1, project2, project3 },
                 Orientations = new List<Orientation> { orientation1, orientation2, orientation3 },
                 OrganisationTypeId = organisationType4.OrganisationTypeId
             };

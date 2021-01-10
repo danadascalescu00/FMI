@@ -1,4 +1,5 @@
 ﻿@model ProiectDAW.Models.Organisation
+@Scripts.Render("~/Scripts/yourScript.js")
 
 @{
     ViewBag.Title = "Details";
@@ -33,6 +34,34 @@
         @Html.DisplayFor(m => m.Description)
     }
 </div>
+<br />
+
+
+@if (Model.Projects.Count > 0)
+{
+    <div class="container my-3">
+        <h3 class="font-weight-lighter">Projects</h3>
+        <div class="row mx-auto my-auto">
+            <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+                <div class="carousel-inner w-100" role="listbox">
+                    @foreach (var project in Model.Projects)
+                    {
+                        <div class="carousel-item active">
+                            <div class="col-md-4">
+                                <img />
+                                <div class="card card-body">
+                                    <h4 class="font-weight-lighter">@project.Name</h4>
+                                    <p class="card-text">@project.ShortDescription</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 <br />
 
 @if (Model.Orientations.Count > 0)
