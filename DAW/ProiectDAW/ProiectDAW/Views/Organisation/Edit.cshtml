@@ -34,7 +34,7 @@
     <br />
     <br />
 
-    @Html.LabelFor(o => o.Description, "Short description:")
+    @Html.LabelFor(o => o.Description, "Description:")
     <br />
     @Html.TextAreaFor(o => o.Description, new { htmlAttributes = new { @class = "fomr-control", @rows = "15", @cols = "256" } })
     @Html.ValidationMessageFor(o => o.Description, "", new { @class = "text-danger" })

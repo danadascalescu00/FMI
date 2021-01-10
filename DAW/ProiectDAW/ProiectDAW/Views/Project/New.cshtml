@@ -1,0 +1,42 @@
+﻿@model ProiectDAW.Models.Project
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="text-lg-center">
+    @using (Html.BeginForm(actionName: "New", controllerName: "Project", method: FormMethod.Post))
+    {
+        @Html.Label("Name", "Project's name:")
+        <br />
+        @Html.TextBoxFor(p => p.Name, null, new { placeholder = "Type in the Project's name...", @class = "text-control" })
+        @Html.ValidationMessageFor(p => p.Name, "", new { @class = "text-dange"}) 
+        <br />
+        <br />
+
+        @Html.Label("Organisation", "Organisation:")
+        <br />
+        @Html.DropDownListFor(p => p.OrganisationRefId, new SelectList(Model.OrganisationList, "Value", "Text"),
+        "Choose an organisation", new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.OrganisationRefId, "", new { @class = "text-danger" })
+        <br />
+        <br />
+
+        @Html.Label("ShortDescription", "Short descritption:")
+        <br />
+        @Html.TextArea("ShortDescription", null, new { placeholder = "Type in the short description...", @class = "text-control", @rows = "6", @cols = "256" })
+        @Html.ValidationMessageFor(p => p.ShortDescription, "", new { @class = "text-danger" })
+        <br />
+        <br />
+
+        @Html.Label("Description", "Description:")
+        <br />
+        @Html.TextArea("Description", null, new { placeholder = "Type in your values and mission...", @class = "text-control", @rows = "15", @cols = "256" })
+        @Html.ValidationMessageFor(p => p.Description, "", new { @class = "text-danger" })
+        <br />
+
+        <button class="btn btn-secondary" type="submit">Create</button>
+    }
+
+</div>

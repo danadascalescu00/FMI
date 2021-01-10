@@ -1,0 +1,40 @@
+﻿@model ProiectDAW.Models.Project
+
+@{
+    ViewBag.Title = "Details";
+    var emptyDescriptionMsg = "This project has no description!";
+
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Label("Name", "Name:")
+<br />
+<p>@Model.Name</p>
+<br />
+
+
+@Html.Label("Description", "Description:")
+<br />
+<div class="panel-body">
+    @if (Model.Description.IsEmpty())
+    {
+        <p>@emptyDescriptionMsg</p>
+    }
+    else
+    {
+        @Html.DisplayFor(m => m.Description)
+    }
+</div>
+<br />
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Project", method: FormMethod.Get, routeValues: new { id = Model.ProjectId }))
+{
+    <button style="margin-right:12px;" class="btn btn-primary col-lg-1" type="submit">Update</button>
+}
+
+@using (Html.BeginForm(actionName: "Delete", controllerName: "Project", method: FormMethod.Post, routeValues: new { id = Model.ProjectId }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    <button class="btn btn-secondary col-lg-1" type="submit">Delete</button>
+}

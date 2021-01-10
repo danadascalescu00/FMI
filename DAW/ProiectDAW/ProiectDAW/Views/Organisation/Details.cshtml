@@ -20,10 +20,8 @@
 <br />
 
 
-
 @Html.Label("Description", "Description:")
 <br />
-
 <div class="panel-body">
     @if (Model.Description.IsEmpty())
     {
@@ -52,6 +50,11 @@
                                 <div class="card card-body">
                                     <h4 class="font-weight-lighter">@project.Name</h4>
                                     <p class="card-text">@project.ShortDescription</p>
+                                    @using (Html.BeginForm(actionName: "Details", controllerName: "Project",
+                                        method: FormMethod.Get, routeValues: new { id = project.ProjectId }))
+                                    {
+                                        <button class="btn btn-info">Details</button>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -62,6 +65,7 @@
     </div>
 }
 
+<br />
 <br />
 
 @if (Model.Orientations.Count > 0)
@@ -76,6 +80,7 @@
 }
 
 <br />
+<br />
 
 @using (Html.BeginForm(actionName: "Edit", controllerName: "Organisation", method: FormMethod.Get, routeValues: new { id = Model.OrganisationId }))
 {
@@ -88,4 +93,5 @@
     <button class="btn btn-secondary col-lg-1" type="submit">Delete</button>
 }
 
+<br />
 <br />
