@@ -5,13 +5,20 @@
 
 <h2>@ViewBag.Title</h2>
 
-<div class="text-center">
+<div class="panel-body">
     @using (Html.BeginForm(actionName: "New", controllerName: "Organisation", method: FormMethod.Post))
     {
         @Html.Label("Name", "NGO's name:")
         <br />
         @Html.TextBoxFor(o => o.Name, null, new { placeholder = "Type in the NGO's name...", @class = "text-control" })
         @Html.ValidationMessageFor(o => o.Name, "", new { @class = "text-danger" })
+        <br />
+        <br />
+
+        @Html.LabelFor(o => o.RegistrationDate, "NGO's registration number:")
+        <br />
+        @Html.TextBoxFor(o => o.RegistrationDate, null, new { placeholder = "Type in the NGO's registration number...", @class = "text-control" })
+        @Html.ValidationMessageFor(o => o.RegistrationDate, "", new { @class = "text-danger" })
         <br />
         <br />
 

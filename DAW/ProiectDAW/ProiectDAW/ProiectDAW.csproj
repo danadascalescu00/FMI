@@ -181,6 +181,7 @@
     <Compile Include="Models\ContactInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MyValidator\RegistrationCodeValidator.cs" />
     <Compile Include="Models\Organisation.cs" />
     <Compile Include="Models\OrganisationType.cs" />
     <Compile Include="Models\Orientation.cs" />

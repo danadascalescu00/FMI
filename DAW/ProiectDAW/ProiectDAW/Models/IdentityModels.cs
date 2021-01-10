@@ -142,6 +142,8 @@ namespace ProiectDAW.Models
             Organisation organisation1 = new Organisation
             {
                 Name = "Tasuleasa Social",
+                RegistrationDate = "01/01/2000",
+                RegistrationCode = "E0101009378",
                 ShortDescription = "We set out to change the mindsets of those around us." +
                  "and to show that young people want to get involved in solving social problems.",
                 Description = "For the Tășuleasa Social Association, the most important values are volunteering, " +
@@ -157,6 +159,8 @@ namespace ProiectDAW.Models
            Organisation organisation3 = new Organisation
             {
                 Name = "Cercetașii României",
+                RegistrationDate = "04/01/1998",
+                RegistrationCode = "E0401981447",
                 ShortDescription = "National Organisation \"Cercetașii României\" is the main scout organization in Romania.",
                 Description = "Scouting is an international youth movement created to help " +
                     "young people in their physical, mental and spiritual development, to become constructive members of society.",
@@ -167,6 +171,8 @@ namespace ProiectDAW.Models
             Organisation organisation4 = new Organisation
             {
                 Name = "WWF Romania",
+                RegistrationDate = "01/05/1990",
+                RegistrationCode = "E0105903842",
                 ShortDescription = "The World Wide Fund for Nature is a non-governmental organization for nature " +
                     "conservation and ecological restoration of the natural environment.",
                 Description = "Suntem cu toții conectați la ADN-ul planetei. Natura este sursa noastră fundamentală " +

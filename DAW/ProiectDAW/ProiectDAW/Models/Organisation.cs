@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProiectDAW.Models.MyValidator;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,15 @@ namespace ProiectDAW.Models
         [MinLength(3, ErrorMessage = "The organisation's name  must contain at least 3 characters!")]
         [MaxLength(32, ErrorMessage = "The organisation's name cannot contain more than 32 characters")]
         public string Name { get; set; }
+
+        [Required]
+        [Display(Name="Registration Date")]
+        [RegularExpression(@"^((0[1-9])|(1[0-9])|(2[0-9])|(3[0-1]))[- /.]((0[1-9]|1[012]))[- /.](19|20)\d\d$",
+            ErrorMessage = "This is not a valid date! \nValid date formats: dd/mm/yyyy  dd.mm.yyyy dd-mm-yy")]
+        public string RegistrationDate { get; set; }
+
+        [RegistrationCodeValidator]
+        public string RegistrationCode { get; set; }
 
         [Required]
         [MinLength(10, ErrorMessage = "The short description cannot be less than 10 characters!")]
