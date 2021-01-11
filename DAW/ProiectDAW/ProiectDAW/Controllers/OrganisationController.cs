@@ -38,9 +38,11 @@ namespace ProiectDAW.Controllers
             return HttpNotFound("Missing organisation id parameter!");
         }
 
+        [HttpGet]
         public ActionResult New()
         {
             Organisation organisation = new Organisation();
+            organisation.OrientationsList = GetAllOrientations();
             organisation.Orientations = new List<Orientation>();
             organisation.OrganisationTypeList = GetAllOrganisationTypes();
             return View(organisation);
@@ -54,6 +56,14 @@ namespace ProiectDAW.Controllers
                 organisationRequest.OrganisationTypeList = GetAllOrganisationTypes();
                 if(ModelState.IsValid)
                 {
+                    organisationRequest.Orientations = new List<Orientation>();
+                    var selectedOrientations = organisationRequest.OrientationsList.Where(o => o.Checked).ToList();
+                    for(int i = 0; i < selectedOrientations.Count(); i++)
+                    {
+                        Orientation orientation = dbContext.Orientations.Find(selectedOrientations[i].Id);
+                        organisationRequest.Orientations.Add(orientation);
+                    }
+
                     dbContext.Organisations.Add(organisationRequest);
                     dbContext.SaveChanges();
                     return RedirectToAction("Index");
@@ -72,13 +82,19 @@ namespace ProiectDAW.Controllers
             if(id.HasValue)
             {
                 Organisation organisation = dbContext.Organisations.Find(id);
-
                 if(organisation == null)
                 {
                     return HttpNotFound("Couldn't find the organisation with id " + id.ToString() + "!");
                 }
 
                 organisation.OrganisationTypeList = GetAllOrganisationTypes();
+                
+                organisation.OrientationsList = GetAllOrientations();
+                foreach(Orientation checkedOrientation in organisation.Orientations)
+                {
+                    organisation.OrientationsList.FirstOrDefault(o => o.Id == checkedOrientation.OrientationId).Checked = true;
+                }
+
                 return View(organisation);
             }
             return HttpNotFound("Missing organisation id parameter!");
@@ -94,12 +110,23 @@ namespace ProiectDAW.Controllers
                 {
                     Organisation organisation = dbContext.Organisations
                                                         .Include("ContactInfo")
+                                                        .Include("OrganisationType")
                                                         .SingleOrDefault(o => o.OrganisationId.Equals(id));
                     if (TryUpdateModel(organisation))
                     {
                         organisation.Name = organisationRequest.Name;
                         organisation.ShortDescription = organisation.ShortDescription;
                         organisation.Description = organisation.Description;
+                        organisation.Orientations.Clear();
+                        organisation.Orientations = new List<Orientation>();
+
+                        var selectedOrientations = organisationRequest.OrientationsList.Where(o => o.Checked).ToList();
+                        for(int i = 0; i < selectedOrientations.Count(); i++)
+                        {
+                            Orientation orientation = dbContext.Orientations.Find(selectedOrientations[i].Id);
+                            organisation.Orientations.Add(orientation);
+                        }
+
                         dbContext.SaveChanges();
                     }
                     return RedirectToAction("Index");
@@ -140,6 +167,22 @@ namespace ProiectDAW.Controllers
             }
 
             return selectedList;
+        }
+
+        [NonAction]
+        public List<CheckBoxViewModel> GetAllOrientations()
+        {
+            var checkboxList = new List<CheckBoxViewModel>();
+            foreach(var orientation in dbContext.Orientations.ToList())
+            {
+                checkboxList.Add(new CheckBoxViewModel 
+                { 
+                    Id = orientation.OrientationId,
+                    Name = orientation.Name,
+                    Checked = false
+                });
+            }
+            return checkboxList;
         }
     }
 }

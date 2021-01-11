@@ -22,9 +22,9 @@
         <br />
         <br />
 
-        @Html.LabelFor(o => o.RegistrationCode, "NGO's registration number:")
+        @Html.LabelFor(o => o.RegistrationCode, "NGO's registration code:")
         <br />
-        @Html.TextBoxFor(o => o.RegistrationCode, null, new { placeholder = "Type in the NGO's registration number...", @class = "text-control" })
+        @Html.TextBoxFor(o => o.RegistrationCode, null, new { placeholder = "Type in the NGO's registration code...", @class = "text-control" })
         @Html.ValidationMessageFor(o => o.RegistrationCode, "", new { @class = "text-danger" })
         <br />
         <br />
@@ -35,6 +35,18 @@
         "Choose a level of operation", new { @class = "form-control" })
         @Html.ValidationMessageFor(o => o.OrganisationTypeId, "", new { @class = "text-danger" })
         <br />
+        <br />
+
+        @Html.LabelFor(o => o.OrientationsList, "Choose your organisation's orientations:")
+        <br />
+        for(int i = 0; i < Model.OrientationsList.Count(); i++)
+        {
+            @Html.HiddenFor(o => o.OrientationsList[i].Id)
+            @Html.HiddenFor(o => o.OrientationsList[i].Name)
+            @Html.CheckBoxFor(o => o.OrientationsList[i].Checked)
+            @Html.DisplayFor(o => o.OrientationsList[i].Name)
+            <br />
+        }
         <br />
 
         @Html.Label("ShortDescription", "Short descritption:")

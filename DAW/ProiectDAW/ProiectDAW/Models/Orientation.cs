@@ -11,6 +11,6 @@ namespace ProiectDAW.Models
         public string Name { get; set; }
 
         // many-to-many relationship
-        public virtual ICollection<Orientation> orientations { get; set; }
+        public virtual ICollection<Organisation> organisations { get; set; }
     }
 }

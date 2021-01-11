@@ -55,9 +55,12 @@ namespace ProiectDAW.Models
         [ForeignKey("OrganisationTypeId")]
         public virtual OrganisationType OrganisationType { get; set; }
 
+        // checkboxes list
+        [NotMapped]
+        public List<CheckBoxViewModel> OrientationsList { get; set; }
+
         [NotMapped]
         public IEnumerable<SelectListItem> OrganisationTypeList { get; set; }
-
 
     }
 }
