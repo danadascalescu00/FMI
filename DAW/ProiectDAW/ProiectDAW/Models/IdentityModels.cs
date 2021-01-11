@@ -45,11 +45,36 @@ namespace ProiectDAW.Models
         {
             ContactInfo contactInfo1 = new ContactInfo
             {
+                Address = "Sat Piatra Fântânele, Str. Obcioara, nr.97, Comuna Tiha Bârgăului, 427363," +
+                          " jud.Bistrița - Năsăud",
+                ContactPerson = "Alin Ulhmann Ușeriu",
                 Email = "asociatia@tasuleasasocial.ro",
-                PhoneNumber = "+40 758 745 767"
+                PhoneNumber = "+40 758 745 767",
+                CUI = "RO1368196",
+                IBAN = "RO50 BTRL 0060 1205 2541 0802"
+            };            
+            
+            ContactInfo contactInfo2 = new ContactInfo
+            {
+                Address = "Bd. Regiei 6B, 060204, sector 6, Bucureşti, România.",
+                ContactPerson = "Catrinel-Mihaela Stan",
+                Email = "contact@scout.ro",
+                PhoneNumber = "+40 723 723 827",
+                CUI = "RO5990766",
+                IBAN = "RO92 BTRL 0060 1203 3228 1201"
+            };            
+            
+            ContactInfo contactInfo3 = new ContactInfo
+            {
+                Address = "Afi Tech Park 1, Bd Tudor Vladimirescu 29, 050881, Bucureşti, România.",
+                Email = "office@wwf.ro",
+                PhoneNumber = "+40 213 174 997",
+                CUI = "RO5990765"
             };
 
             context.ContactInfos.Add(contactInfo1);
+            context.ContactInfos.Add(contactInfo2);
+            context.ContactInfos.Add(contactInfo3);
 
             Orientation orientation1 = new Orientation { Name = "Charities" };
             Orientation orientation2 = new Orientation { Name = "Service" };
@@ -164,6 +189,7 @@ namespace ProiectDAW.Models
                 ShortDescription = "National Organisation \"Cercetașii României\" is the main scout organization in Romania.",
                 Description = "Scouting is an international youth movement created to help " +
                     "young people in their physical, mental and spiritual development, to become constructive members of society.",
+                ContactInfo = contactInfo2,
                 Orientations = new List<Orientation> { orientation3, orientation4 },
                 OrganisationTypeId = organisationType4.OrganisationTypeId
            };
@@ -192,6 +218,7 @@ namespace ProiectDAW.Models
                     "Dacă vom acea succes, în 30 de ani declinul naturii va fi oprit; ecosistemele vor fi " +
                     "reziliente și vor exista mecanisme sociale, economice și politice care să asigure folosirea " +
                     "responsabilă a resurselor, iar poluarea va fi redusă în limite sigure pentru viață.",
+                ContactInfo = contactInfo3,
                 Orientations = new List<Orientation> { orientation1, orientation4 },
                 OrganisationTypeId = organisationType4.OrganisationTypeId
             };
