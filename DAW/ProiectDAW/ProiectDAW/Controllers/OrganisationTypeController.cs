@@ -18,6 +18,7 @@ namespace ProiectDAW.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult New()
         {
             OrganisationType organisationType = new OrganisationType();
@@ -25,6 +26,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult New(OrganisationType organisationTypeRequest)
         {
             try
@@ -43,6 +45,7 @@ namespace ProiectDAW.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if(id.HasValue)
@@ -58,6 +61,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, OrganisationType organisationTypeRequest)
         {
             try
@@ -81,6 +85,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if(id.HasValue)

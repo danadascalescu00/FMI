@@ -19,6 +19,7 @@ namespace ProiectDAW.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if(id.HasValue)
@@ -34,6 +35,7 @@ namespace ProiectDAW.Controllers
             return HttpNotFound("Missing project id parameter!");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult New()
         {
             Project project = new Project();
@@ -42,6 +44,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult New(Project projectRequest)
         {
             try
@@ -61,7 +64,7 @@ namespace ProiectDAW.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if(id.HasValue)
@@ -79,6 +82,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, Project projectRequest)
         {
             try
@@ -108,6 +112,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             Project project = dbContext.Projects.Find(id);

@@ -94,31 +94,33 @@
 </p>
 <br />
 
-<div class="row">
-    <div class="col-md-4">
-        <h3 class="text-info">Legal Data</h3>
-        <p><span class="text-primary">Denumire: </span> Association @Model.Name</p>
-        <p><span class="text-primary">Address: </span>  @Model.ContactInfo.Address</p>
+@if (Model.ContactInfo != null)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <h3 class="text-info">Legal Data</h3>
+            <p><span class="text-primary">Denumire: </span> Association @Model.Name</p>
+            <p><span class="text-primary">Address: </span>  @Model.ContactInfo.Address</p>
+        </div>
+        <div class="col-md-4">
+            <h3 class="text-info">Donate!</h3>
+            <p><span class="text-primary">CUI: </span> @Model.ContactInfo.CUI</p>
+            <p><span class="text-primary">IBAN: </span> @Model.ContactInfo.IBAN</p>
+        </div>
+        <div class="col-md-4">
+            <h3 class="text-info">Contact Person</h3>
+            @if (!String.IsNullOrEmpty(Model.ContactInfo.ContactPerson))
+            {
+                <p class="text-primary"> @Model.ContactInfo.ContactPerson</p>
+            }
+            <p><span class="text-primary">Email:</span> @Model.ContactInfo.Email </p>
+            @if (!String.IsNullOrEmpty(Model.ContactInfo.PhoneNumber))
+            {
+                <p><span class="text-primary">Phone number:</span> @Model.ContactInfo.PhoneNumber </p>
+            }
+        </div>
     </div>
-    <div class="col-md-4">
-        <h3 class="text-info">Donate!</h3>
-        <p><span class="text-primary">CUI: </span> @Model.ContactInfo.CUI</p>
-        <p><span class="text-primary">IBAN: </span> @Model.ContactInfo.IBAN</p>
-    </div>
-    <div class="col-md-4">
-        <h3 class="text-info">Contact Person</h3>
-        @if (!String.IsNullOrEmpty(Model.ContactInfo.ContactPerson))
-        {
-            <p class="text-primary"> @Model.ContactInfo.ContactPerson</p>
-        }
-        <p><span class="text-primary">Email:</span> @Model.ContactInfo.Email </p>
-        @if (!String.IsNullOrEmpty(Model.ContactInfo.PhoneNumber))
-        {
-            <p><span class="text-primary">Phone number:</span> @Model.ContactInfo.PhoneNumber </p>
-        }
-    </div>
-</div>
-
+}
 
 <br />
 <br />

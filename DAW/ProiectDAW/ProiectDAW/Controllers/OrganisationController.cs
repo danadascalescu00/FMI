@@ -39,6 +39,7 @@ namespace ProiectDAW.Controllers
             return HttpNotFound("Missing organisation id parameter!");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult New()
         {
@@ -49,6 +50,7 @@ namespace ProiectDAW.Controllers
             return View(organisation);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult New(Organisation organisationRequest)
         {
@@ -78,6 +80,8 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Edit(int? id)
         {
             if(id.HasValue)
@@ -102,6 +106,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, Organisation organisationRequest)
         {
             try
@@ -141,6 +146,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             Organisation organisation = dbContext.Organisations.Find(id);

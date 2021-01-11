@@ -19,6 +19,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult New()
         {
             Orientation orientation = new Orientation();
@@ -26,6 +27,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult New(Orientation orientation)
         {
             try
@@ -44,6 +46,7 @@ namespace ProiectDAW.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id.HasValue)
@@ -59,6 +62,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, Orientation orientationRequest)
         {
             try
@@ -82,6 +86,7 @@ namespace ProiectDAW.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id.HasValue)
