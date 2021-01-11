@@ -61,6 +61,7 @@ namespace ProiectDAW.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if(id.HasValue)

@@ -24,6 +24,7 @@ namespace ProiectDAW.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if(id.HasValue)
