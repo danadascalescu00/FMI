@@ -8,6 +8,10 @@
 
 <h2>@ViewBag.Title</h2>
 
+<br />
+<a href='@Url.Action("Index")' class="btn btn-secondary btn-md active" role="button">Go back</a>
+<br />
+<br />
 
 @Html.Label("Name", "Name:")
 <br />
@@ -84,6 +88,11 @@
         }
     </ul>
 }
+
+<p style="margin-left: 2px; margin-top:0px; padding-top:1px;">
+    @Html.ActionLink(linkText: "View all NGO's orientations", actionName: "Index", controllerName: "Orientation")
+</p>
+<br />
 
 <div class="row">
     <div class="col-md-4">

@@ -172,6 +172,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrganisationController.cs" />
     <Compile Include="Controllers\OrganisationTypeController.cs" />
+    <Compile Include="Controllers\OrientationController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -483,6 +484,9 @@
     <Content Include="Views\OrganisationType\Index.cshtml" />
     <Content Include="Views\OrganisationType\New.cshtml" />
     <Content Include="Views\OrganisationType\Edit.cshtml" />
+    <Content Include="Views\Orientation\Index.cshtml" />
+    <Content Include="Views\Orientation\New.cshtml" />
+    <Content Include="Views\Orientation\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
