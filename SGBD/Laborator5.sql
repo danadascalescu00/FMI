@@ -473,6 +473,7 @@ DROP TRIGGER trig22_dda;
 ALTER TABLE info_dept_dda
 ADD numar NUMBER(4);
 
+DESC info_dept_dda;
 CREATE OR REPLACE PROCEDURE actualizare_info_dept_dda AS
     count_emp NUMBER(4) := 0;
     CURSOR c IS
@@ -485,18 +486,20 @@ BEGIN
         FROM info_emp_dda
         WHERE id_dept = i.id;
         
-        DBMS_OUTPUT.PUT_LINE(count_emp);
+        UPDATE info_dept_dda
+        SET numar = count_emp
+        WHERE id = i.id;
         
     END LOOP;
 END;
 /
 
+SELECT * FROM info_dept_dda;
+
 BEGIN
     actualizare_info_dept_dda();
 END;
 /
-
-SELECT * FROM info_dept_dda;
 
 --  b) Definiti un declansator care va actualiza automat aceasta coloana in functie de actualizarile realizate asupra tabelului info_emp_***.
 CREATE OR REPLACE TRIGGER trig3_dda
@@ -523,36 +526,95 @@ BEGIN
 END;
 /
     
+SELECT * FROM info_dept_dda;
+DESC info_emp_dda;
+SELECT * FROM info_emp_dda WHERE id_dept = 100;
+DELETE FROM info_emp_dda WHERE id_emp = 108;
+SELECT * FROM info_dept_dda;
+
 DROP TRIGGER trig3_dda;
 
 
 --    4. Definiti un declansator cu ajutorul caruia sa se implementeze restrictia conform careia intr-un departament nu pot lucra 
 --  mai mult de 45 persoane (se vor utiliza doar tabelele emp_*** si dept_*** fara a modifica structura acestora).
-CREATE OR REPLACE TRIGGER trig4_dda 
+-- Varianata 1 - Nu merge pentru inserturi multiple
+CREATE OR REPLACE TRIGGER trig41_dda 
     BEFORE INSERT ON emp_dda
     FOR EACH ROW
 DECLARE
-    v_max_emp CONSTANT NUMBER := 45;
     v_count_emp NUMBER(4) := 0;
 BEGIN
     SELECT COUNT(*) INTO v_count_emp
     FROM emp_dda
     WHERE department_id = :NEW.department_id;
     
-    IF v_count_emp + 1 > v_max_emp THEN
+    IF v_count_emp + 1 > 45 THEN
         RAISE_APPLICATION_ERROR(-20008, 'S-a atins numarul maxim de angajati ce pot lucra in acest departament.');
     END IF;
 END;
 /
 
-DROP TRIGGER trig4_dda;
+INSERT INTO emp_dda(employee_id,last_name, email, hire_date, job_id, department_id)
+VALUES (300, 'Test', 'Test@gmail.com', sysdate, 'SA_MAN', 50);
+
+DROP TRIGGER trig41_dda;
+
+
+-- Varianta 2 - CORECTA
+DESC emp_dda;
+
+CREATE OR REPLACE PACKAGE pachet42dda
+AS
+    TYPE tip_rec IS RECORD
+    ( id emp_dda.department_id%TYPE, num NUMBER(4));
+    TYPE tip_t_ind IS TABLE OF tip_rec
+        INDEX BY PLS_INTEGER;
+    t tip_t_ind;
+    contor NUMBER(4) := 0;
+END;
+/
+
+DROP TRIGGER trig42_dda_comanda;
+
+CREATE OR REPLACE TRIGGER trig42_dda_comanda
+BEFORE INSERT OR UPDATE OF department_id ON emp_dda
+BEGIN
+    pachet42dda.contor := 0; 
+    -- pentru fiecare salariat retinem cati angajati lucreaza in departamentul respectiv
+    SELECT department_id, COUNT(*)
+        BULK COLLECT INTO pachet42dda.t
+    FROM emp_dda 
+    GROUP BY department_id;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER trig43_dda_linie
+BEFORE INSERT OR UPDATE OF department_id ON emp_dda
+FOR EACH ROW
+BEGIN
+    FOR i IN pachet42dda.t.FIRST..pachet42dda.t.LAST LOOP
+        IF pachet42dda.t(i).id = :NEW.department_id AND pachet42dda.t(i).num + pachet42dda.contor > 45 THEN
+            RAISE_APPLICATION_ERROR(-20005, 'Acest departament are maximul de angajati!');
+        END IF;
+    END LOOP;
+    pachet42dda.contor := pachet42dda.contor + 1;
+END;
+/
+
+ALTER TABLE emp_dda
+DISABLE CONSTRAINT PRIMARY KEY;
+
+SELECT * FROM USER_TRIGGERS;
+SELECT * FROM USER_PROCEDURES
+WHERE OBJECT_TYPE = 'PACKAGE';
 
 DROP TABLE info_emp_dda;
 DROP TABLE info_dept_dda;
 DROP VIEW v_info_dda;
 
 
--- 5. a) Pe baza informatiilor din schema creati si popula?i cu date urmatoarele doua tabele:
+-- 5. a) Pe baza informatiilor din schema creati si populati cu date urmatoarele doua tabele:
 --       - emp_test_*** (employee_id – cheie primara, last_name, first_name, department_id);
 --       - dept_test_*** (department_id – cheie primara, department_name).
 CREATE TABLE emp_test_dda AS
@@ -574,7 +636,7 @@ ALTER TABLE emp_test_dda
 ADD FOREIGN KEY (department_id) REFERENCES dept_test_dda(department_id)
 ON DELETE SET NULL;
 
---    b) Defini?i un declansator care va determina stergeri si modificari in cascada:
+--    b) Definiti un declansator care va determina stergeri si modificari in cascada:
 --       - stergerea angajatilor din tabelul emp_test_*** daca este eliminat departamentul acestora din tabelul dept_test_***;
 --       - modificarea codului de departament al angajatilor din tabelul emp_test_*** daca departamentul respectiv este 
 --    modificat in tabelul dept_test_***. 
@@ -651,3 +713,4 @@ FROM DBA_TRIGGERS;
 
 SELECT * 
 FROM ALL_TRIGGERS;
+
