@@ -185,21 +185,30 @@ def add_pieces_hexagon(params: Parameters):
                     if indexes_grid[row_index + 1][col_index - 1] == sorted_indexes[index]:
                         index += 1
                 else:
-                    # stanga-sus
-                    if indexes_grid[row_index - 1][col_index - 1] == sorted_indexes[index]:
-                        index += 1
-                    # stanga-jos
-                    if indexes_grid[row_index + 1][col_index - 1] == sorted_indexes[index]:
-                        index += 1
-                    # dreapta-sus 
-                    if indexes_grid[row_index - 1][col_index + 1] == sorted_indexes[index]:
-                        index += 1
-                    # dreapta-jos
-                    if indexes_grid[row_index + 1][col_index + 1] == sorted_indexes[index]:
-                        index += 1
-                    # sus
-                    if indexes_grid[row_index - 2][col_index] == sorted_indexes[index]:
-                        index += 1
+                    ok = False
+                    while ok != True:
+                        ok = True
+                        # sus
+                        if indexes_grid[row_index - 2][col_index] == sorted_indexes[index]:
+                            ok = False
+                            index += 1
+                        # stanga-sus
+                        if indexes_grid[row_index - 1][col_index - 1] == sorted_indexes[index]:
+                            ok = False
+                            index += 1
+                        # stanga-jos
+                        if indexes_grid[row_index + 1][col_index - 1] == sorted_indexes[index]:
+                            ok = False
+                            index += 1
+                        # dreapta-sus 
+                        if indexes_grid[row_index - 1][col_index + 1] == sorted_indexes[index]:
+                            ok = False
+                            index += 1
+                        # dreapta-jos
+                        if indexes_grid[row_index + 1][col_index + 1] == sorted_indexes[index]:
+                            ok = False
+                            index += 1
+
 
 
             indexes_grid[row_index][col_index] = sorted_indexes[index]
