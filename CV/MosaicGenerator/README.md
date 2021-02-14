@@ -11,10 +11,6 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#implementation-of-algorithms-for-obtaining-mosaic-images">Implementation of algorithms for obtaining mosaic images</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -109,12 +105,12 @@ At each iteration of the algorithm, a position is randomly selected to place the
 <p align="center"> 
   <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/tomJerry.jpeg" width="480">
   <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_tomJerry_hexagonal_vecini_95.png" width="480">
-  <b>Figure 7.</b> Reference image (left). Mosaic image with 95 hexagonal pieces for the grid arrangement mode, the criterion of Euclidian distance between average colors and the property that no two adjancent pieces are identical (right).
+  <b>Figure 7.</b> Reference image (left). Mosaic image with 95 hexagonal pieces for the grid arrangement mode, the criterion of Euclidian distance between average colors and the property that there are not any adjancent pieces identical (right).
 </p>
 <p align="center"> 
   <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/romania.jpeg" width="480">
   <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_romania_hexagonal_vecini_105.png" width="480">
-  <b>Figure 8.</b> Reference image (left). Mosaic image with 105 hexagonal pieces for the grid arrangement mode, the criterion of Euclidian distance between average colors and the property that no two adjancent pieces are identical (right).
+  <b>Figure 8.</b> Reference image (left). Mosaic image with 105 hexagonal pieces for the grid arrangement mode, the criterion of Euclidian distance between average colors and the property that there are not any adjancent pieces identical (right).
 </p>
 <br/>
 <br/>
