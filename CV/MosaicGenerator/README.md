@@ -19,15 +19,16 @@
 A mosaic image (called a mosaic) is obtained by replacing pixel blocks in a reference image with small images (we call them mosaic pieces) from a given collection. Replacing 
 the pixel blocks with pieces is done so that the resulting mosaic approximates as well as possible the reference image.  
 
-<p>
-  <img src ="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/ferrari.jpeg" width="480">  
-  <img src ="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_ferrari_caroiaj_100.png" width="480">
+<p align="center">
+  <img src ="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/ferrari.jpeg" width="470">  
+  <img src ="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_ferrari_caroiaj_100.png" width="470">
+  <br/>
   <b>Figure 1.</b> Mosaic image: for the reference image on the left we get the mosaic on the right. The mosaic pieces are chosen from a collection of 500 images (mosaic pieces), where each image represents a flower.
 </p>
 <br/>
 
 ## Usage
-To get the mosaic image, run the **_run_project.py_** script. This script sets the reference image for which the mosaic will be made and sets various parameters including:
+To get the mosaic image, run the **_run_project.py_** script from <i>cod</i> directory. This script sets the reference image for which the mosaic will be made and sets various parameters including:
   - the name of the director in which the collection of small images is located and which will constitute the pieces of the mosaic;
   - the format of the images in the collection ('jpg', 'jpeg', 'png', 'tiff', etc). All pieces of the mosaic must have the same format.
   - the number of horizontal pieces of the mosaic (set by default with the value 100), which defines the dimensions of the resulting mosaic;
@@ -79,37 +80,42 @@ It can be seen in the images in Figure 2 and Figure 3 that as the number of part
 ### 3.5 Obtaining mosaics for the random arrangement and the criterion of the Euclidean distance between the average colors
 At each iteration of the algorithm, a position is randomly selected to place the upper left corner of the resized image. To avoid the exact overlapping pieces (there may be overlapping partial pieces), the positions are chosen randomly from a "poll" of the candidates, a linear vector that holds the positions unelected. The algorithm ends when the entire grid is covered.
 <p align="center">
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/tomJerry.jpeg" width="475">
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_tomJerry_aleator_100.png" width="475">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/tomJerry.jpeg" width="470">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_tomJerry_aleator_100.png" width="470">
   <b>Figure 4.</b> Reference image (left). Mosaic image with 100 pieces for the random arrangement and the criterion of the Euclidean distance between the average colors (right).
 </p>
 <br/>
 
 ### 3.6 Obtaining the mosaics for the grid arrangement mode, the criterion of the Euclidean distance between the average colors and the property that no two adjacent pieces are identical
 <p align="center"> 
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/obama.jpeg" width="480">
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_obama_caroiaj_vecini.png" width="480">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/obama.jpeg" width="470">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_obama_caroiaj_vecini.png" width="470">
+  <br/>
   <b>Figure 5.</b> Reference image (left). Mosaic image with 100 pieces for the grid arrangement mode, the criterion of Euclidian distance between average colors and the property that no two adjancent pieces are identical (right).
 </p>
 <br/>
 
 ### 3.7 Obtaining mosaics for the grid layout and the criterion of the Euclidean distance between the average colors in the hexagonal pieces  
 <p align="center"> 
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/ferrari.jpeg" width="480">
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_ferrari_hexagon_100.png" width="480">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/ferrari.jpeg" width="470">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_ferrari_hexagon_100.png" width="470">
+  <br/>
   <b>Figure 6.</b> Reference image (left). Mosaic image with 100 hexagonal pieces for the grid arrangement mode, the criterion of Euclidian distance between average colors (right).
 </p>
 <br/>
 
 ### 3.8 Obtaining mosaics for the grid layout and the criterion of the Euclidian distance between the average colors in the hexagonal pieces with the property that there are not any adjancent pieces identical  
 <p align="center"> 
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/tomJerry.jpeg" width="480">
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_tomJerry_hexagonal_vecini_95.png" width="480">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/tomJerry.jpeg" width="470">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_tomJerry_hexagonal_vecini_95.png" width="470">
+  <br/>
   <b>Figure 7.</b> Reference image (left). Mosaic image with 95 hexagonal pieces for the grid arrangement mode, the criterion of Euclidian distance between average colors and the property that there are not any adjancent pieces identical (right).
 </p>
+
 <p align="center"> 
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/romania.jpeg" width="480">
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_romania_hexagonal_vecini_105.png" width="480">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/imaginiTest/romania.jpeg" width="470">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/MosaicGenerator/data/results/mosaic_romania_hexagonal_vecini_105.png" width="470">
+  <br/>
   <b>Figure 8.</b> Reference image (left). Mosaic image with 105 hexagonal pieces for the grid arrangement mode, the criterion of Euclidian distance between average colors and the property that there are not any adjancent pieces identical (right).
 </p>
 <br/>
