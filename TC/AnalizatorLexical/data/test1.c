@@ -4,7 +4,7 @@
  
 int main(void)
 {
-    float a = .02;
+    //float a = .e55; /* Illegal floating-point literal: missing integer or fraction */
     unsigned int b = 215;
     char c = 'x';
     unsigned char d = 023; 
