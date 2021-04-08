@@ -1,10 +1,5 @@
 from helpers import *
 
-def union(setA, setB):
-    n = len(setA)
-    setA |= setB
-    return len(setA) != n
-
 class ContextFreeGrammar:
     def __init__(self, start, nonterminals=[], terminals=[], production_rule={}, lambda_sym="ł"):
         self.start = start
@@ -14,6 +9,7 @@ class ContextFreeGrammar:
         self._lambda = lambda_sym
         self.firsts = {}
 
+        
     def removeDirectLeftRec(self, nonterminal):
         rep_production, new_production = [], []
         # introduce new nonterminal which will be write at the last of every terminal
@@ -32,6 +28,7 @@ class ContextFreeGrammar:
         self.production_rule[new_nonterminal] = new_production
         self.nonterminals.append(new_nonterminal)
 
+        
     def checkIndirectLeftRec(self, nonterminal1, nonterminal2):
         if nonterminal1 == nonterminal2:
             return True
@@ -42,6 +39,7 @@ class ContextFreeGrammar:
 
         return False
 
+    
     def removeIndirectLeftRec(self, nonterminal, nonterminal_order):
         for pos, nonterminal2 in enumerate(list(self.production_rule)):
             if nonterminal != nonterminal2 and pos > nonterminal_order:
@@ -50,6 +48,7 @@ class ContextFreeGrammar:
                         rep_production = ''.join([str(elem) + ('|' if elem != self.production_rule[nonterminal][-1] else '') for elem in self.production_rule[nonterminal]])
                         self.production_rule[nonterminal2][idx] =  rep_production + self.production_rule[nonterminal2][idx][1:]
 
+                        
     def removeRec(self):
         # identify if any production causes indirect left recursion
         for pos, nonterminal in enumerate(list(self.production_rule)):
@@ -64,6 +63,7 @@ class ContextFreeGrammar:
             if any(nonterminal == r[0] for r in self.production_rule[nonterminal]):
                 self.removeDirectLeftRec(nonterminal)
 
+                
     def getFirst(self, symbol):
         first = set()
         if symbol not in self.nonterminals:
@@ -77,10 +77,12 @@ class ContextFreeGrammar:
                 first = first.union(first_s)
         return first
 
+    
     def calculateFirstSets(self):
         for s in self.nonterminals + self.terminals:
             self.firsts[s] = self.getFirst(s)
 
+            
     def calculateFollowSets(self):
         follow = {i: set() for i in self.nonterminals}
         follow[self.start] = set("$")
@@ -96,6 +98,7 @@ class ContextFreeGrammar:
             if not updated:
                 return follow
 
+            
     def updateFollowSet(self, epsilon, expression, follow, nonterminalFollow, updated):
         for i, symbol in enumerate(expression):
             if symbol in self.nonterminals:
