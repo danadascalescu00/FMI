@@ -1,15 +1,4 @@
-
-# start = "E"
-# lambda_var = "ł"
-# neterminali = ["E", "D", "T", "W", "F"]
-# terminali = ["a", "(", ")", lambda_var, "*", "+"]
-# productii = {
-#     "E": ["TD"],
-#     "D": ["+TD", lambda_var],
-#     "T": ["FW"],
-#     "W": ["*FW", lambda_var],
-#     "F": ["(E)", "a"]
-# }
+from helpers import *
 
 def union(setA, setB):
     n = len(setA)
@@ -41,6 +30,7 @@ class ContextFreeGrammar:
         new_production.insert(0,"?")
         self.production_rule[nonterminal] = rep_production
         self.production_rule[new_nonterminal] = new_production
+        self.nonterminals.append(new_nonterminal)
 
     def checkIndirectLeftRec(self, nonterminal1, nonterminal2):
         if nonterminal1 == nonterminal2:
@@ -126,3 +116,38 @@ class ContextFreeGrammar:
                         updated |= union(follow[nonterminal], nonterminalFollow.difference(epsilon))
         return updated
 
+
+    def leftFactorize(self):
+        prefixes = []
+
+        for nonterminal in list(self.production_rule):
+            rules = self.production_rule[nonterminal]
+            if len(rules) == 1:
+                continue
+
+            # we check for each nonterminal if there is a non-trivial prefix 
+            nontrivial_prefixes = nonTrivialPrefixes(rules)
+            if not nontrivial_prefixes:
+                continue
+
+            for prefix, rule in nontrivial_prefixes.items():
+                commons = [c[0] for c in takewhile(same_prefix,zip(*rule))]
+                prefixes.append(''.join(commons))
+
+            for prefix in prefixes:
+                new_production = []
+                new_nonterminal = alphabet.pop() + "'"                
+                while new_nonterminal in self.nonterminals:
+                    new_nonterminal = alphabet.pop() + "'"
+                self.nonterminals.append(new_nonterminal)
+
+                for r in self.production_rule[nonterminal]:
+                    if r.startswith(prefix):
+                        r = r.replace(prefix,"",1)
+                        new_production.append(r)
+
+                for r in nontrivial_prefixes[prefix]:
+                    self.production_rule[nonterminal].remove(r)
+
+                self.production_rule[nonterminal].append(prefix + new_nonterminal)
+                self.production_rule[new_nonterminal] = new_production
