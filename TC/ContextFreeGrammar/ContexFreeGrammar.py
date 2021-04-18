@@ -97,3 +97,59 @@ class ContextFreeGrammar:
 
                 self.production_rule[nonterminal].append(prefix + new_nonterminal)
                 self.production_rule[new_nonterminal] = new_production
+                
+                
+    def getFirst(self, symbol):
+        first = set()
+        if symbol not in self.nonterminals:
+            first.add(symbol)
+            return first
+        for s in self.production_rule[symbol]:
+            if s[0] not in self.nonterminals:
+                first.add(s[0])
+            else:
+                first_s = self.getFirst(s[0])
+                first = first.union(first_s)
+        return first
+
+    
+    def calculateFirstSets(self):
+        for s in self.nonterminals + self.terminals:
+            self.firsts[s] = self.getFirst(s)
+
+            
+    def calculateFollowSets(self):
+        follow = {i: set() for i in self.nonterminals}
+        follow[self.start] = set("$")
+        epsilon = set(self._lambda)
+        self.calculateFirstSets()
+
+        while True:
+            updated = False
+            for nt in self.nonterminals:
+                nonterminalFollow = follow[nt]
+                for expression in self.production_rule[nt]:
+                    updated = self.updateFollowSet(epsilon, expression, follow, nonterminalFollow, updated)
+            if not updated:
+                return follow
+
+            
+    def updateFollowSet(self, epsilon, expression, follow, nonterminalFollow, updated):
+        for i, symbol in enumerate(expression):
+            if symbol in self.nonterminals:
+                nonterminal = symbol
+                if i == len(expression) - 1:
+                    updated |= union(follow[nonterminal], nonterminalFollow)
+                else:
+                    found = False
+                    for j in range(i + 1, len(expression)):
+                        nextNonterminal = expression[j]
+                        if self._lambda in self.firsts[nextNonterminal]:
+                            updated |= union(follow[nonterminal], self.firsts[nextNonterminal].difference(epsilon))
+                        else:
+                            found = True
+                            updated |= union(follow[nonterminal], self.firsts[nextNonterminal])
+                            break
+                    if not found:
+                        updated |= union(follow[nonterminal], nonterminalFollow.difference(epsilon))
+        return updated
