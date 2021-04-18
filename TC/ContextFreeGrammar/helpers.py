@@ -4,6 +4,13 @@ from itertools import takewhile
 alphabet = list(ascii_uppercase)
 alphabet.reverse()
 
+
+def union(setA, setB):
+    n = len(setA)
+    setA |= setB
+    return len(setA) != n
+
+
 def same_prefix(characters):
     return len(set(characters)) == 1
 
