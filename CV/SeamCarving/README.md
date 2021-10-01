@@ -41,8 +41,8 @@ It can be observed that an algorithm based on the Greedy method does not lead to
 Image width and length reduction algorithms may be used to amplify image content. To keep the image content as much as possible, the image is scaled with the magnification factor set by the user, and then it is applied the functions that perform the reduction operations on height and width to bring the image to its original size, preserving the aspect ratio.
 
 <p align="center">
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/SeamCarving/data/arcTriumf.jpg" width="450">
-  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/SeamCarving/results/arcTriumf_dynamic_programming_amplificaContinut_05.png" width="450">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/SeamCarving/data/arcTriumf.jpg" width="455">
+  <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/SeamCarving/results/arcTriumf_dynamic_programming_amplificaContinut_05.png" width="455">
   <b>Figure 5.</b> Reference image (left), amplyfied content with 5% of the reference image (right).
 </p>
 
