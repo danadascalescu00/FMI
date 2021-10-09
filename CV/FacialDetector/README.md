@@ -52,7 +52,7 @@ For each test image, at each scale, a fixed-size window of 36x36 pixels is slidd
 
 <b>Evaluation protocol.</b> We quantify the performance of a facial detector to correctly locate faces in test images by two values:
 * **accuracy**: the percentage of detections returned by the facial detector as windows containing faces.
-* **recall**(=detection rate): the percentage of faces in the fcorrectly located test images.  
+* **recall**(=detection rate): the percentage of faces correctly located in the test images.  
 
 We combine the two values (precision + recall) in a precision-recall graph (Figure 5). Each point on this graph represents the accuracy and recall of the facial detector obtained for all detections (ordered in ascending order by score) that exceed a certain threshold score (threshold parameter value). The entire graph is numerically quantified by the average accuracy that represents the area below the graph.  
 Figure 2 illustrates the accuracy-recall graph and average accuracy = 0.85 for the CMU + MIT dataset (contains 130 images with 511 annotated faces) for the best facial detector model obtained.
