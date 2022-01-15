@@ -1,5 +1,5 @@
 # Homework and projects 
-This repository contains my projects made along with my bachelor studies at the Faculty of Mathematics and Computer Science, University of Bucharest.
+This repository contains my projects made along with my bachelor and master studies at the Faculty of Mathematics and Computer Science, University of Bucharest.
 
 ## Content:
 * [AI](AI) - Artificial Intelligence
