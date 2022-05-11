@@ -4,6 +4,8 @@ This repository contains my projects made along with my bachelor and master (Art
 ## Content:
 📌 [AI](AI) - Artificial Intelligence
 
+📌 [AML](AML) - Advance Machine Learning
+
 📌 [CG](CG) - Computational Geometry
 
 📌 [CN](CN) - Numerical Analysis (in Python)
