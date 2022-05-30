@@ -32,4 +32,6 @@ This repository contains my projects made along with my bachelor and master (Art
 
 📌 [SGBD](SGBD) - DataBase Management Systems(in PL/SQL)
 
+📌 [SDS](SDS) - Statistics for Data Science
+
 📌 [TAP](TAP)
