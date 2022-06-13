@@ -1,7 +1,7 @@
 # Homework and projects 
 This repository contains my projects made along with my bachelor and master (Artificial Intelligence program) studies at the Faculty of Mathematics and Computer Science, University of Bucharest.
 
-❗❗❗ All resources from this repository are public, but not intended for plagiarism.
+‼️ All resources from this repository are public, but not intended for plagiarism.
 
 ## Content:
 📌 [AI](AI) - Artificial Intelligence
