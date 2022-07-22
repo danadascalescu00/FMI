@@ -16,11 +16,13 @@ This repository contains my projects made along with my bachelor and master (Art
 
 📌 [Db](Db) - Designing and constructing relational databases; accessing, defining and maintaining data using SQL Oracle
 
-📌 [PD](PD) - Declarative Programming (in Haskell)
-
 📌 [EDA](EDA) - Exploratory Data Analysis
 
-📌 [OOP](OOP) - Object Oriented Programming in C++
+📌 [IDL](IDL) - Introduction to Deep Learning
+
+📌 [PD](PD) - Declarative Programming (in Haskell)
+
+📌 [OOP](OOP) - Object Oriented Programming (in C++)
 
 📌 [NLP1](NLP1) - Natural Language Processing (Part 1)
 
