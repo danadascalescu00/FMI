@@ -17,3 +17,6 @@ Materiale de laborator pentru cursul de Învățare Automată (studii de licenț
 📌 Laborator 6: Perceptronul și rețele de perceptroni
 
 📌 Laborator 7: Perceptronul și rețele de perceptroni în Scikit-learn
+
+
+Materiale curs: https://fmi-unibuc-ia.github.io/ia/
