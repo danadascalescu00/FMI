@@ -20,15 +20,17 @@ This repository contains my projects made along with my bachelor and master (Art
 
 📌 [IDL](IDL) - Introduction to Deep Learning
 
-📌 [PD](PD) - Declarative Programming (in Haskell)
-
-📌 [OOP](OOP) - Object Oriented Programming (in C++)
+📌 [KRR](KRR) - Knowledge Representation and Reasoning
 
 📌 [NLP1](NLP1) - Natural Language Processing (Part 1)
 
 📌 [NLP2](NLP2) - Natural Language Processing (Part 2)
 
+📌 [OOP](OOP) - Object Oriented Programming (in C++)
+
 📌 [OS](OS) - Operating Systems
+
+📌 [PD](PD) - Declarative Programming (in Haskell)
 
 📌 [Probability and Statistics](https://github.com/danadascalescu00/FMI/tree/master/Probability%20and%20Statistics)
 
