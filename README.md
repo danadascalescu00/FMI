@@ -12,6 +12,8 @@ This repository contains my projects made along with my bachelor and master (Art
 
 📌 [CN](CN) - Numerical Analysis (in Python)
 
+📌 [CS](CS) - Introduction to Cryptography and Network Security 
+
 📌 [CV](CV) - Introduction to Computer Vision
 
 📌 [Db](Db) - Designing and constructing relational databases; accessing, defining and maintaining data using SQL Oracle
@@ -40,4 +42,8 @@ This repository contains my projects made along with my bachelor and master (Art
 
 📌 [SDS](SDS) - Statistics for Data Science
 
-📌 [TAP](TAP)
+📌 [TAP](TAP) - Advanced Programming Techniques
+
+📌 [TC](TC) - Introduction to Compilation Techniques
+
+📌 [TS](TS) - Introduction to Simulation Techniques
