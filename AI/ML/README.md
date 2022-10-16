@@ -2,7 +2,7 @@
 # Laborator Învățare Automată UNIBUC 2022
 ## Grupa 231
 
-Materiale de laborator pentru cursul de Învățare Automată (studii de licență).
+Materiale laborator pentru cursul de Învățare Automată (studii de licență).
 
 📌 Laborator 1: Introducere în Numpy, Pandas și Matplotlib
 
