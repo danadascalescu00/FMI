@@ -36,7 +36,11 @@ This repository contains my projects made along with my bachelor and master (Art
 
 📌 [Probability and Statistics](https://github.com/danadascalescu00/FMI/tree/master/Probability%20and%20Statistics)
 
+📌 [PML](PML) - Practical Machine Learning
+
 📌 [PP](PP) - Procedural Programming
+
+📌 [Probabilistic Programming](...) 
 
 📌 [SGBD](SGBD) - DataBase Management Systems(in PL/SQL)
 
