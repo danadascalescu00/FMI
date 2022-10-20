@@ -18,6 +18,8 @@ This repository contains my projects made along with my bachelor and master (Art
 
 📌 [Db](Db) - Designing and constructing relational databases; accessing, defining and maintaining data using SQL Oracle
 
+📌 [DL](DL) - Deep Learning
+
 📌 [EDA](EDA) - Exploratory Data Analysis
 
 📌 [IDL](IDL) - Introduction to Deep Learning
