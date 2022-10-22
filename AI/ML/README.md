@@ -4,7 +4,7 @@
 
 Materiale laborator pentru cursul de Învățare Automată (studii de licență).
 
-📌 Laborator 1: Introducere în Numpy, Pandas și Matplotlib
+📌 Laborator 1: Introducere în Python. Introducere în Numpy, Pandas și Matplotlib
 
 📌 Laborator 2: Naive Bayes
 
