@@ -40,9 +40,9 @@ This repository contains my projects made along with my bachelor and master (Art
 
 📌 [PML](PML) - Practical Machine Learning
 
-📌 [PP](PP) - Procedural Programming
+📌 [Probabilistic Programming](ProbProg) 
 
-📌 [Probabilistic Programming](...) 
+📌 [PP](PP) - Procedural Programming
 
 📌 [SGBD](SGBD) - DataBase Management Systems(in PL/SQL)
 
