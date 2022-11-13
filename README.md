@@ -14,7 +14,7 @@ This repository contains my projects made along with my bachelor and master (Art
 
 📌 [CS](CS) - Introduction to Cryptography and Network Security 
 
-📌 [CV](CV) - Introduction to Computer Vision
+📌 [CV](CV) - Introduction to Computer Vision (CAVA - Concepte & Aplicații în Vederea Artificială)
 
 📌 [Db](Db) - Designing and constructing relational databases; accessing, defining and maintaining data using SQL Oracle
 
