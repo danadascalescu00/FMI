@@ -24,6 +24,8 @@ This repository contains my projects made along with my bachelor and master (Art
 
 📌 [IDL](IDL) - Introduction to Deep Learning
 
+📌 [IRTM](IRTM) - Information Retrieval & Text Mining
+
 📌 [KRR](KRR) - Knowledge Representation and Reasoning
 
 📌 [NLP1](NLP1) - Natural Language Processing (Part 1)
