@@ -28,6 +28,8 @@ This repository contains my projects made along with my bachelor and master (Art
 
 📌 [KRR](KRR) - Knowledge Representation and Reasoning
 
+📌 [MT](MT) - Machine Translation
+
 📌 [NLP1](NLP1) - Natural Language Processing (Part 1)
 
 📌 [NLP2](NLP2) - Natural Language Processing (Part 2)
