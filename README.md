@@ -1,5 +1,5 @@
 # Homework and projects 
-This repository contains my projects made along with my bachelor and master (Artificial Intelligence program) studies at the Faculty of Mathematics and Computer Science, University of Bucharest.
+This repository comprises the projects I made throughout my bachelor's and master's (Artificial Intelligence program) studies at the University of Bucharest's Faculty of Mathematics and Computer Science, as well as a variety of useful resources.
 
 ‼️ All resources from this repository are public, but not intended for plagiarism.
 
@@ -17,6 +17,8 @@ This repository contains my projects made along with my bachelor and master (Art
 📌 [CV](CV) - Introduction to Computer Vision (CAVA - Concepte & Aplicații în Vederea Artificială)
 
 📌 [Db](Db) - Designing and constructing relational databases; accessing, defining and maintaining data using SQL Oracle
+
+📌 [DEA](DEA) - Deontology and Academic Ethics
 
 📌 [DL](DL) - Deep Learning
 
