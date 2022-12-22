@@ -1,0 +1,31 @@
+Din exercițiul 1) reiese permutarea cu caracteristica (13,13):
+	
+				(KZLAVCMSOJWUR)(HIYETFGPDNQXB)
+
+Dintre toți candidații observăm că cele mai multe similarități le găsim la permutarea:
+				
+				(AVRMSTJWUCKZL)(HIPEOFGYDNQXB)
+
+Prin urmare poziția rotorilor este BIV.
+
+
+	AVCMSOJWURKZL        HIYETFGPDNQXB
+          ^  ^    ^            ^ ^  ^
+          |  |    |            | |  |
+          v  v    v            v v  v
+	AVRMSTJWUCKZL        HIPEOFGYDNQXB
+
+
+Găsim conexiunile:
+ C <--> R
+ O <--> T
+ P <--> Y
+
+
+Pentru decriptarea mesajului BLGH XNST PVBX WMUZ P am urmart următorii pași:
+Cu configurația obținută decriptăm primele 6 caractere ale mesajului criptat pentru a obține cheia (cheia a fost transmisă în duplicat în
+mesajului):
+ blghxn ----> keyke y
+
+Obținem cheia KEY și setăm roatoarele pentru aceasta. 
+Obținem mesajul decriptat: nextx attac k => next atack (ultmiul x poate fi eliminat deoarece reprezintă un spațiu)
