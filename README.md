@@ -1,5 +1,5 @@
 # Homework and projects 
-This repository comprises the projects I made throughout my bachelor's and master's (Artificial Intelligence program) studies at the University of Bucharest's Faculty of Mathematics and Computer Science, as well as a variety of useful resources.
+🎓 This repository contains the projects I made throughout my bachelor's and master's (Artificial Intelligence program) studies at the Faculty of Mathematics and Computer Science of the University of Bucharest, 2018-2022, as well as a variety of student-friendly materials.
 
 ‼️ All resources from this repository are public, but not intended for plagiarism.
 
