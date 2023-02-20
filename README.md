@@ -50,6 +50,8 @@
 
 📌 [PP](PP) - Procedural Programming
 
+📌 [RL](RL) - Reinforcement Learning
+
 📌 [SGBD](SGBD) - DataBase Management Systems(in PL/SQL)
 
 📌 [SDS](SDS) - Statistics for Data Science
