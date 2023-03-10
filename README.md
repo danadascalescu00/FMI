@@ -24,6 +24,8 @@
 
 📌 [EDA](EDA) - Exploratory Data Analysis
 
+📌 [EDDL](EDDL) - Emerging Directions in Deep Learning
+
 📌 [IDL](IDL) - Introduction to Deep Learning
 
 📌 [IRTM](IRTM) - Information Retrieval & Text Mining
