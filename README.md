@@ -52,6 +52,8 @@
 
 📌 [PP](PP) - Procedural Programming
 
+📌 [PSS](PSS) - Problem Searching & Solving
+
 📌 [RL](RL) - Reinforcement Learning
 
 📌 [SGBD](SGBD) - DataBase Management Systems(in PL/SQL)
