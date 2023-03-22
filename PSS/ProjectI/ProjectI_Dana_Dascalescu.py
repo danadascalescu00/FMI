@@ -1,5 +1,5 @@
 """
-    Author: Dăscălescu Dana, grupa 507, Artificial Intelligence
+    Author: Dăscălescu Dana, groupe 507, Artificial Intelligence
     
     Problem description and requirements for applicability of the BFS and DFS algorithms:
         * Description: The students taking the Artificial Intelligence exam are arranged in rows of two-person benches in classroom 308.
@@ -9,6 +9,7 @@
         a result, only the penultimate and final banks on each row can be utilized for message transfer. Diana wants to include the 
         path she needs to take from one colleague to the next on the note to avoid getting lost in the classroom and reaching her 
         friend only after the exam ends.
+        * Task requirements: A software application that uses two algorithms of Uninformed Search.
 """
 
 import re
@@ -51,22 +52,24 @@ def read_input_file(input_filename):
 
 class Node(ABC):
     """
-        This class is used to represent a node in the graph.
+        This abstract class provides a basic structure for defining nodes in a graph and 
+        allows for customization by subclassing and implementing the required methods.
 
-    Args:
-        ABC (_type_): _description_
-        
     Methods:
         * __eq__(self, other): Determines if two nodes are equal or not
+        * __hash__(self): Returns a hash value for the node, which is used for fast lookup in hash tables
+        * __str__(self): Returns a string representation of the node
     """
     
     @abstractmethod
     def __eq__(self, __o: object) -> bool:
         pass
     
+    @abstractmethod
     def __hash__(self) -> int:
         pass
-        
+    
+    @abstractmethod
     def __str__(self) -> str:
         pass
     
@@ -105,17 +108,34 @@ class Student(Node):
     def __str__(self) -> str:
         if self.name:
             return self.name
-        
+     
         
 class Problem:
     def __init__(self, matrix_config, start_scope_nodes_names ) -> None:
+        """
+            Initialize a new instance of the problem class.
+            
+            Args:
+                * matrix_confix (list): A list of lists representing the matrix configuration.
+                * start_scope_nodes_names (list): A list of two strings representing the start and goal node names.
+        
+        """
         self.maze = matrix_config
-        self.rows = len(self.maze)
-        self.cols = len(self.maze[0])
-        self.start_node = self.get_node(start_scope_nodes_names[0])
-        self.scope_node = self.get_node(start_scope_nodes_names[1])
+        self.rows = len(self.maze) # number of rows in the maze
+        self.cols = len(self.maze[0]) # number of columns in the maze
+        self.start_node = self.get_node(start_scope_nodes_names[0]) # starting node
+        self.scope_node = self.get_node(start_scope_nodes_names[1]) # goal node
         
     def get_node(self, node_name):
+        """
+        Finds in the matrix configuration and returns a node object based on the string representation.
+
+        Args:
+            node_name (str): The name of the node (string representation) to retrieve. In our context the Student object.
+
+        Returns:
+            Student: A student object representing the node.
+        """
         for i in range(self.rows):
             for j in range(self.cols):
                 if self.maze[i][j] == node_name:
@@ -127,7 +147,8 @@ class Search():
         self.problem_configuration = problem
     
     
-    def reconstruct_path(self, node):
+    def reconstruct_path(self, node) -> List[Student]:
+        # Reconstructs the path of the solution
         path = []
         while node:
             path.append(node)
@@ -137,6 +158,7 @@ class Search():
     
     
     def show_path(self, path):
+        # Shows the reconstructed path of the solution
         print("Reconstructed path:")
         print("\t", end="")        
         for it, node in enumerate(path):
@@ -146,12 +168,15 @@ class Search():
                 print(node.name)
     
     
-    def get_successors(self, node):
-        """_summary_
-
-        Args:
-            node (_type_): _description_
-            maze (_type_): _description_
+    def get_successors(self, node) -> List[Student]:
+        """
+            Returns a list with all the successors (neighboring nodes) of a given node. 
+            
+            Args:
+                node (Student): The node whose successors we want to find.
+                
+            Returns:
+                List[Student]: The list of nodes that are the successors of the current node.
         """
         row, col = node.row, node.col
         successors = []
