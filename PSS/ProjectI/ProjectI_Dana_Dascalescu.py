@@ -1,15 +1,17 @@
 """
     Author: Dăscălescu Dana, groupe 507, Artificial Intelligence
     
+    Task requirements: 
+        A software application that uses two algorithms of Uninformed Search.
+    
     Problem description and requirements for applicability of the BFS and DFS algorithms:
-        * Description: The students taking the Artificial Intelligence exam are arranged in rows of two-person benches in classroom 308.
+        The students taking the Artificial Intelligence exam are arranged in rows of two-person benches in classroom 308.
         The benches are arranged in two columns. Diana wants to help her friend Calin by sending him the answers to the exam's grid
         through a message. A student can only pass the message to the bank colleague behind or in front of them, or the one right beside
         them, but not diagonally. Moreover, passing the message between rows is challenging since the teacher can easily notice it. As
         a result, only the penultimate and final banks on each row can be utilized for message transfer. Diana wants to include the 
         path she needs to take from one colleague to the next on the note to avoid getting lost in the classroom and reaching her 
         friend only after the exam ends.
-        * Task requirements: A software application that uses two algorithms of Uninformed Search.
 """
 
 import re
