@@ -17,16 +17,15 @@
 import re
 import sys
 
-import timeit
-from time import sleep
-from memory_profiler import profile
+from time import sleep, time
+from memory_profiler import memory_usage
+import gc # Garbage Collector
 
 from abc import ABC, abstractmethod
 
 from typing import List, Tuple
 
 from collections import deque
-
 
 
 def read_input_file(input_filename: str) -> Tuple[List[List[str]], List[str]]:
@@ -71,7 +70,6 @@ def read_input_file(input_filename: str) -> Tuple[List[List[str]], List[str]]:
     return maze_configuration, start_scope_nodes_names 
 
 
-
 class Node(ABC):
     """
         This abstract class provides a basic structure for defining nodes in a graph and 
@@ -94,8 +92,7 @@ class Node(ABC):
     @abstractmethod
     def __str__(self) -> str:
         pass
-  
-
+    
     
 class Student(Node):
     """
@@ -131,8 +128,7 @@ class Student(Node):
     def __str__(self) -> str:
         if self.name:
             return self.name
-   
-
+     
         
 class Problem:
     """
@@ -167,7 +163,6 @@ class Problem:
             for j in range(self.cols):
                 if self.maze[i][j] == node_name:
                     return Student(i, j, node_name)
-
                 
 
 class Search():
@@ -254,53 +249,135 @@ class Search():
         return successors
     
     
-    @profile
     def BFS(self) -> List[Node]:
-        # Performs BFS on a given problem and returns the path from the start node to the scope node
+        """
+        Performs breadth-first search on a given problem and returns the path from the start node to the scope node.
+        
+        Returns:
+        path (List[Node]): The path from the start node to the scope node.
+        """
+
+        # Initialize the frontier and visited set
         frontier = deque([self.problem_configuration.start_node])
         visited = set()
         
+        # Loop through each node in the frontier until the scope node is found or the frontier is empty
         while frontier:
             node = frontier.popleft()
             visited.add(node)
             
+            # If the scope node is found, reconstruct the path and return it
             if node == problem.scope_node:
                 path = self.reconstruct_path(node)
                 print("The length of the path:", len(path))
                 self.show_path(path)
                 return path
             
+            # Otherwise, add the node's successors to the frontier if they have not been visited or added to the frontier before
             successors = self.get_successors(node)
             for successor in successors:
                 if successor not in visited and successor not in frontier:
                     frontier.append(successor)
-                    
+        
+        # If the scope node is not found, print an error message and return None           
         print("Path not found!")
+        return None
         
       
-    @profile  
     def DFS(self) -> List[Node]:
-        # Performs DFS on a given problem and returns the path from the start node to the scope node
+        """
+        Performs depth-first search on a given problem and returns the path from the start node to the scope node.
+        
+        Returns:
+        path (List[Node]): The path from the start node to the scope node.
+        """
+        
+        # Initialize the frontier and visited set
         frontier = [self.problem_configuration.start_node]
         visited = set()
         
+        # Loop through each node in the frontier until the scope node is found or the frontier is empty
         while frontier:
             node = frontier.pop()
             visited.add(node)
             
+            # If the scope node is found, reconstruct the path and return it
             if node == problem.scope_node:
                 path = self.reconstruct_path(node)
                 print("The length of the path:", len(path))
                 self.show_path(path)
                 return path
             
+            # Otherwise, add the node's successors to the frontier if they have not been visited or added to the frontier before
             successors = self.get_successors(node)
             for successor in successors:
                 if successor not in visited and successor not in frontier:
                     frontier.append(successor)
-                    
+         
+        # If the scope node is not found, print an error message and return None           
         print("Path not found!")
+        return None
+        
+        
+    def DLS(self, l: int = 18) -> List[Node]:
+        """
+        Performs depth-limited search on a given problem and returns the path from the start node to the scope node.
+        
+        Args:
+        l (int): The maximum depth to search to.
+        
+        Returns:
+        path (List[Node]): The path from the start node to the scope node.
+        """
+        
+        # Initialize the frontier and visited set
+        frontier = [self.problem_configuration.start_node]
+        visited = set()
+        
+        curr_depth = 0
+        print(f"The maximum depth to search to: {l}")
+        
+        # Loop through each node in the frontier until either the scope node is found or the maximum depth is reached
+        while frontier and curr_depth < l:
+            node = frontier.pop()
+            visited.add(node)
+            
+            # If the scope node is found, reconstruct the path and return it
+            if node == problem.scope_node:
+                path = self.reconstruct_path(node)
+                print("The length of the path:", len(path))
+                self.show_path(path)
+                return path
+            
+            # Otherwise, add the node's successors to the frontier if they have not been visited or added to the frontier before
+            successors = self.get_successors(node)
+            for successor in successors:
+                if successor not in visited and successor not in frontier:
+                    frontier.append(successor)
+            
+            curr_depth += 1
+        
+        # If the scope node is not found, print an error message and return None            
+        print("Path not found!")
+        return None
     
+
+    def IDS(self) -> List[Node]:
+        """
+        Performs iterative deepening search on a given problem and returns the path from the start node to the scope node
+
+        Returns:
+            path (List[Node]): The path from the start node to the scope node.
+        """
+        
+        for depth_limit in range(1, 100): # We set a maximum limit of 100 levels
+            print(f"Current depth limit {depth_limit}")
+            result = self.DLS(depth_limit)
+            if result is not None:
+                return result
+            
+        print("Path not found!")
+        return None
     
     
 if __name__ == "__main__":
@@ -309,18 +386,59 @@ if __name__ == "__main__":
     problem = Problem(class_grid, start_scope_nodes_names)
     search = Search(problem)
     
-    print("*" * 100)
+    print("*" * 127)
     # measure the execution time of the BFS algorithm
-    execution_time = timeit.timeit(search.BFS, number=1)
+    start_time_bfs = time()
+    mem_usage = memory_usage(search.BFS, max_usage=True, max_iterations=1)
+    end_time_bfs = time()
+    execution_time = end_time_bfs - start_time_bfs
     print(f"Execution time of BFS search: {execution_time:.4f} seconds")
-    print("*" * 100)
+    print('Maximum memory usage of BFS: %s' % mem_usage)
+    print("*" * 127)
     print()
-    print("*" * 100)
+    gc.collect()
+
     
     # delay the execution of the next search
     sleep(1)
-
-    # measure the execution time of the BFS algorithm
-    execution_time = timeit.timeit(search.DFS, number=1)
+    
+    print("*" * 127)
+    # measure the execution time of the DFS algorithm
+    start_time_dfs = time()
+    mem_usage = memory_usage(search.DFS, max_usage=True, max_iterations=1)
+    end_time_dfs = time()
+    execution_time = end_time_dfs - start_time_dfs
     print(f"Execution time of DFS search: {execution_time:.4f} seconds")
-    print("*" * 100)
+    print('Maximum memory usage of DFS: %s' % mem_usage)
+    print("*" * 127)
+    print()
+    gc.collect()
+
+    
+    # delay the execution of the next search
+    sleep(1)
+    
+    print("*" * 127)
+    # measure the execution time of the DLS algorithm
+    start_time_dls = time()
+    mem_usage = memory_usage(search.DLS, max_usage=True, max_iterations=1)
+    end_time_dls = time()
+    execution_time = end_time_dls - start_time_dls
+    print(f"Execution time of DLS search: {execution_time:.4f} seconds")
+    print('Maximum memory usage of DLS: %s' % mem_usage)
+    print("*" * 127)
+    print()
+    gc.collect()
+
+    
+    # delay the execution of the next search
+    print("*" * 127)
+    # measure the execution time of the IDS algorithm
+    start_time_ids = time()
+    mem_usage = memory_usage(search.IDS, max_usage=True, max_iterations=1)
+    end_time_ids = time()
+    print(f"Execution time of IDS search: {execution_time:.4f} seconds")
+    print('Maximum memory usage of IDS: %s' % mem_usage)
+    print("*" * 127)
+    print()
+    gc.collect()
