@@ -2,7 +2,7 @@
     Author: Dăscălescu Dana, groupe 507, Artificial Intelligence
     
     Task requirements: 
-        A software application that uses two algorithms of Uninformed Search.
+        An application that uses two algorithms of Uninformed Search.
     
     Problem description and requirements for applicability of the BFS and DFS algorithms:
         The students taking the Artificial Intelligence exam are arranged in rows of two-person benches in classroom 308.
@@ -16,25 +16,43 @@
 
 import re
 import sys
+
 import timeit
+from time import sleep
+from memory_profiler import profile
 
 from abc import ABC, abstractmethod
 
-from typing import List
+from typing import List, Tuple
 
 from collections import deque
 
 
-def read_input_file(input_filename):
-    fin = None
+
+def read_input_file(input_filename: str) -> Tuple[List[List[str]], List[str]]:
+    """
+    Reads the input file and extracts the maze configuration and start scope nodes names from it.
+    
+    Args:
+    input_filename (str): The filename of the input file.
+    
+    Returns:
+    maze_configuration (List[List[str]]): The maze configuration as a 2D list of strings.
+    start_scope_nodes_names (List[str]): The start scope nodes names as a list of strings.
+    """
+    
     try:
         fin = open(input_filename, "r")
     except:
         print('Error: {}. {}, line: {}'.format(sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2].tb_lineno))
+        return None
         
     maze_configuration, start_scope_nodes_names = [], []
+    
+    # Loop through each line of the input file
     for line in fin:
-        if 'mesaj' in line:
+        # If the line contains "message", extract the start and scope nodes
+        if 'message' in line:
             start_scope_nodes_names = re.split('->', line)
             start_scope_nodes_names[0] = start_scope_nodes_names[0].strip().split()[-1]
             start_scope_nodes_names[1] = start_scope_nodes_names[1].strip()
@@ -42,14 +60,16 @@ def read_input_file(input_filename):
         
         try:
             students = line.split()
+            maze_configuration.append(students)
         except ValueError:
+            # If an error occurs while splitting the line, print an error message and close the file
             print("Something went wrong! Invalid input!")
             fin.close()
-        maze_configuration.append(students)
-            
+        
+    # Close the input file and return the maze configuration and start scope nodes names      
     fin.close()
-    
     return maze_configuration, start_scope_nodes_names 
+
 
 
 class Node(ABC):
@@ -74,7 +94,8 @@ class Node(ABC):
     @abstractmethod
     def __str__(self) -> str:
         pass
-    
+  
+
     
 class Student(Node):
     """
@@ -110,10 +131,14 @@ class Student(Node):
     def __str__(self) -> str:
         if self.name:
             return self.name
-     
+   
+
         
 class Problem:
-    def __init__(self, matrix_config, start_scope_nodes_names ) -> None:
+    """
+    Problem and goal formulation
+    """
+    def __init__(self, matrix_config: List[List[str]], start_scope_nodes_names: List[str]) -> None:
         """
             Initialize a new instance of the problem class.
             
@@ -128,7 +153,7 @@ class Problem:
         self.start_node = self.get_node(start_scope_nodes_names[0]) # starting node
         self.scope_node = self.get_node(start_scope_nodes_names[1]) # goal node
         
-    def get_node(self, node_name):
+    def get_node(self, node_name: str) -> Student:
         """
         Finds in the matrix configuration and returns a node object based on the string representation.
 
@@ -142,9 +167,13 @@ class Problem:
             for j in range(self.cols):
                 if self.maze[i][j] == node_name:
                     return Student(i, j, node_name)
+
                 
 
 class Search():
+    """
+    Infrastructure for search algorithms.
+    """
     def __init__(self, problem) -> None:
         self.problem_configuration = problem
     
@@ -159,7 +188,7 @@ class Search():
         return path[::-1]
     
     
-    def show_path(self, path):
+    def show_path(self, path: List[Node]) -> None:
         # Shows the reconstructed path of the solution
         print("Reconstructed path:")
         print("\t", end="")        
@@ -170,7 +199,7 @@ class Search():
                 print(node.name)
     
     
-    def get_successors(self, node) -> List[Student]:
+    def get_successors(self, node: Student) -> List[Student]:
         """
             Returns a list with all the successors (neighboring nodes) of a given node. 
             
@@ -225,8 +254,9 @@ class Search():
         return successors
     
     
-    def BFS(self):
-        # Performs breadth-first search on a given problem and returns the path from the start node to the scope node
+    @profile
+    def BFS(self) -> List[Node]:
+        # Performs BFS on a given problem and returns the path from the start node to the scope node
         frontier = deque([self.problem_configuration.start_node])
         visited = set()
         
@@ -247,9 +277,10 @@ class Search():
                     
         print("Path not found!")
         
-        
-    def DFS(self):
-        # Performs depth-first search on a given problem and returns the path from the start node to the scope node
+      
+    @profile  
+    def DFS(self) -> List[Node]:
+        # Performs DFS on a given problem and returns the path from the start node to the scope node
         frontier = [self.problem_configuration.start_node]
         visited = set()
         
@@ -285,6 +316,10 @@ if __name__ == "__main__":
     print("*" * 100)
     print()
     print("*" * 100)
+    
+    # delay the execution of the next search
+    sleep(1)
+
     # measure the execution time of the BFS algorithm
     execution_time = timeit.timeit(search.DFS, number=1)
     print(f"Execution time of DFS search: {execution_time:.4f} seconds")
