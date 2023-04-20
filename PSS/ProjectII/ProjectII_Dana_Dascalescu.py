@@ -6,15 +6,15 @@
         as it would be interesting to compare the performance of the two search algorithms.
     
     Problem description and requirements for applicability of A* algorithm:
-        * Description: The students taking the Artificial Intelligence exam are arranged in rows of two-person benches in classroom 308.
-        The benches are arranged in two columns. Diana wants to help her friend Calin by sending him the answers to the exam's grid
-        through a message. A student can only pass the message to the bank colleague behind or in front of them, or the one right beside
-        them, but not diagonally. Moreover, passing the message between rows is challenging since the teacher can easily notice it. As
-        a result, only the penultimate and final banks on each row can be utilized for message transfer. Diana wants to include the 
-        path she needs to take from one colleague to the next on the note to avoid getting lost in the classroom and reaching her 
-        friend only after the exam ends. To make matters worse, some students are upset with each other or they disagree with cheating.
-        This may make them unwilling to participate in the message transfer or report it to the TAs if they notice it happening. Therefore,
-        Diana needs to be cautious about selecting trustworthy colleagues who are willing to help her.
+        * Description: In classroom 308, students taking the Artificial Intelligence exam are seated in rows of two-person benches arranged in
+        two columns. Some spots are free, meaning there are no students occupying those seats. Diana wants to help her friend Calin cheat on the
+        exam by sending him the answers through a message. However, there are restrictions on how messages can be passed. Students can only pass
+        the message to the bank colleague behind or in front of them, or the one right beside them, but not diagonally. Additionally, passing 
+        messages between rows is challenging since the teacher can easily notice it. Only the penultimate and final benches on each row can be 
+        used for message transfer. To ensure she does not get lost in the classroom, Diana wants to include on the note the path it needs to take
+        from one colleague to the next. To make matters worse, some students are upset with each other or disagree with cheating. This may make 
+        them unwilling to participate in the message transfer, or they will report it to the TAs if they notice it happening. Therefore, Diana
+        needs to be cautious about selecting trustworthy colleagues who are willing to help her.
         
         * Algorithm admissibility: 
             The following set of conditions must be met in order to ensure that the A* algorithm can find a minimum cost path to a goal node.
@@ -40,16 +40,17 @@
                 Although though the Euclidean distance is smaller than the Manhattan or diagonal distance, and we will still have the 
                 minimal cost path from a start node to a goal node, this heuristic will cause the A* algorithm to execute more slowly.
     
-    A particular case of A* is the breadth-first algorithm. In this case, we have f^(n) = g^(n) = depth(n) for any node in the 
-    search graph n, so h = 0, hence this is an admissible heuristic, but it does not provide search performance (it is an uninformed search).
+    A particular case of A* is the breadth-first algorithm. In this case, we have f^(n) = g^(n) = depth(n) for any node in the search graph n, 
+    so h = 0, hence this is an admissible heuristic, but it does not provide search performance (it is an uninformed search).
 """
 
+import os
 import re
 import sys
 import copy
 import timeit
 
-from typing import List, Tuple, Optional, Union
+from typing import List, Tuple, Optional, Union, Dict
 
 NUM_INPUT_FILES = 4
 INPUT_FILE_NAME = '507_Dăscălescu_Dana_input_'
@@ -65,8 +66,7 @@ def read_class_info(input_file_name: str) -> Tuple[List[List[str]], List[List[st
     input_file_name (str): The name of the input file.
 
     Returns:
-    Tuple[List[List[str]], List[List[str]], List[str]]: A tuple containing the class information,
-    upset children, and message.
+    Tuple[List[List[str]], List[List[str]], List[str]]: A tuple containing the class information, upset children, and message.
 
     Raises:
     FileNotFoundError: If the input file is not found.
@@ -127,8 +127,7 @@ class Configuration:
         self.seating_arrangement = self.generate_seating_arrangement()
         self.message_position = self.get_message_position(message)
 
-
-    def generate_seating_arrangement(self) -> dict:
+    def generate_seating_arrangement(self) -> Dict[str, Tuple[int, int]]:
         """
         Generate a dictionary that maps the names of children to their positions in the seating arrangement.
 
@@ -141,26 +140,25 @@ class Configuration:
                 seating_arrangement[child] = (i, j)
         return seating_arrangement
 
-
-    def get_message_position(self, child_name) -> tuple:
+    def get_message_position(self, message: str) -> tuple:
         """
-        Return the position of the message associated with the given child name.
+        Get the position of the student who has the message.
 
         Args:
-            child_name (str): The name of the child.
+            message (str): The name of the student who has the message.
 
         Returns:
-            tuple: A tuple (i, j) representing the row and column indices of the child's position in the classroom.
+            tuple: A tuple (i, j) representing the row and column indices of the student who has the message.
         """
-        return self.seating_arrangement.get(child_name)
-
+        if message in self.seating_arrangement:
+            return self.seating_arrangement[message]
+        else:
+            raise ValueError("Invalid message recipient: {}".format(message))
 
     def manhattan_distance(self) -> int:
         """
-        Compute the Manhattan distance between the current configuration and the final configuration.
-
-        The Manhattan distance is the sum of the absolute differences between the row and column indices of the message
-        positions in the current configuration and the final configuration.
+        Compute the Manhattan distance between the current configuration (current message location) 
+        and the final configuration (Calin's location).
 
         Returns:
             int: The Manhattan distance between the current configuration and the final configuration.
@@ -168,20 +166,6 @@ class Configuration:
         global final_configuration
         return abs(self.message_position[0] - final_configuration.message_position[0]) \
             + abs(self.message_position[1] - final_configuration.message_position[1])
-
-    def diagonal_distance(self) -> int:
-        """
-        Compute the diagonal distance between the current configuration and the final configuration.
-
-        The diagonal distance is the maximum of the absolute differences between the row and column indices of the message
-        positions in the current configuration and the final configuration.
-
-        Returns:
-            int: The diagonal distance between the current configuration and the final configuration.
-        """
-        global final_configuration
-        return max(abs(self.message_position[0] - final_configuration.message_position[0]), \
-            abs(self.message_position[1] - final_configuration.message_position[1]))
 
     def __eq__(self, other) -> bool:
         """
@@ -204,6 +188,7 @@ class Configuration:
         """
         return f"{self.matrix[self.message_position[0]][self.message_position[1]]}"
     
+  
     
 class Node:
     def __init__(self, configuration) -> None:
@@ -234,6 +219,7 @@ class Node:
         """
         return f'{self.info}'
     
+ 
     
 class Edge:
     """
@@ -259,6 +245,7 @@ class Edge:
             str: A string representation of the edge.
         """
         return f"Edge(start_node={self.start_node}, end_node={self.end_node}, cost={self.cost})"
+ 
     
 
 class Problem:
@@ -291,6 +278,7 @@ class Problem:
             if node.configuration == configuration:
                 return node
         return None
+ 
             
             
 class NodeTraversal:
@@ -318,6 +306,7 @@ class NodeTraversal:
         else:
             self.f_cost = f_cost
 
+
     def get_path(self) -> List[Node]:
         """
         Returns the path associated with this node traversal, from the starting node to this node.
@@ -329,6 +318,7 @@ class NodeTraversal:
             path = [current_node.parent_node] + path
             current_node = current_node.parent_node
         return path
+
 
     def contains_node(self, node: Node) -> bool:
         """
@@ -343,6 +333,7 @@ class NodeTraversal:
             current_node = current_node.parent_node
         return False
 
+
     def expand(self) -> List[Tuple[Node, int]]:
         """
         Returns a list of all possible successor nodes of this node, along with their edge costs.
@@ -350,29 +341,47 @@ class NodeTraversal:
                 node of this node, and cost is the cost of the edge between this node and the successor node.
         """
         global num_rows, num_cols, classroom
-
-        current_message_position = self.graph_node.info.message_position
+        # Define the possible moves that can be made from the current position
         valid_moves = [[1, 0], [0, 1], [0, -1], [-1, 0]]
 
+        # Get the current position of the message in the graph node
+        current_message_position = self.graph_node.info.message_position
+
+        # Initialize an empty list of successors
         successors = []
+        
+        # Loop through all possible moves from the current position
         for move in valid_moves:
+            # Calculate the new position after making the move
             new_position = [current_message_position[0] + move[0], current_message_position[1] + move[1]]
-            # Check if the new position is valid
+            
+            # Check if the new position is within the bounds of the classroom
             if 0 <= new_position[0] < num_rows and 0 <= new_position[1] < num_cols:
+                # Get the names of the students at the current and new positions
                 name1 = classroom[current_message_position[0]][current_message_position[1]]
                 name2 = classroom[new_position[0]][new_position[1]]
+                
+                # Check if the message can be passed between the two students
                 if can_pass_on_message(name1, name2):
                     new_class = copy.deepcopy(classroom)
+                    
+                    # Create a new configuration object with the updated classroom and student holding the message
                     new_config = Configuration(new_class, name2)
+                    
+                    # Create a new node with the updated configuration and add it to the list of successors
                     successor = Node(new_config)
                     successors.append((successor, 1))
+        
+        # Return the list of successors
         return successors
+
 
     def is_goal(self) -> bool:
         """
         Returns True if the current graph node is the goal node of the problem, False otherwise.
         """
         return self.graph_node.info == self.problem.goal_node
+
 
     def __str__(self) -> str:
         """
@@ -397,7 +406,7 @@ class NodeTraversal:
                 if pos1[1] % 2 == 1:
                     return f" << {self.graph_node}"
                 return f" < {self.graph_node}"
-            return f"{self.graph_node}"
+            return f"{ self.graph_node}"
                
         
 """
@@ -409,7 +418,6 @@ def node_info_str(node_list: List[Node]) -> str:
     """
     global classroom
     
-    num_rows = len(classroom)
     result = "[ "
     if len(node_list) > 0:
         for node in node_list:
@@ -438,18 +446,18 @@ def find_node_in_list(node_list: List[Node], node: Node) -> Optional[Node]:
     return None
 
 
-def are_kids_angry(kid1: Node, kid2: Node) -> bool:
+def are_students_angry(student1: Node, student2: Node) -> bool:
     """
-    Check if two kids are in an angry pair.
+    Check if two students are in an angry pair.
     """
     global upset_students_pairs
     for pair in upset_students_pairs:
-        if (kid1 == pair[0] and kid2 == pair[1]) or (kid2 == pair[0] and kid1 == pair[1]):
+        if (student1 == pair[0] and student2 == pair[1]) or (student2 == pair[0] and student1 == pair[1]):
             return True
     return False
 
 
-def can_pass_on_message(bank1, bank2) -> bool:
+def can_pass_on_message(bank1: str, bank2: str) -> bool:
     """
     Check if a message can be passed from bank1 to bank2.
     """
@@ -458,16 +466,16 @@ def can_pass_on_message(bank1, bank2) -> bool:
     
     if "X" in bank1 or "X" in bank2:
         return False
-    elif are_kids_angry(bank1, bank2):
+    elif are_students_angry(bank1, bank2):
         return False
     else:
         pos1, pos2 = start_configuration.get_message_position(bank1), start_configuration.get_message_position(bank2)
         if pos1[1] > pos2[1]:
             pos1, pos2 = pos2, pos1
         
-        # Check if kids are on different columns
+        # Check if students are on different columns
         if (pos1[1] % 2 == 1 and pos2[1] % 2 == 0):
-            # Kids can only pass on a message between columns if they are in the last two rows (on the same row)
+            # Students can only pass on a message between columns if they are in the last two rows (on the same row)
             if pos1[0] != pos2[0] or pos1[0] < num_rows - 2:
                 return False
         # If they are on the same column, check if they are NEIGHBOURS or if they are on different rows (they can't pass on the message diagonally)
@@ -503,7 +511,7 @@ def a_star(output_file):
             break
 
         successors = current_node.expand() # the current node is expanded, obtaining its successors in the graph
-        for (successor_node, successor_cost ) in successors:
+        for (successor_node, successor_cost) in successors:
             # checking if the successor is not on the path between the root and its parent (to avoid forming a circuit)
             if not current_node.contains_node(successor_node):
                 # successors that are on the path from the start node to the current node will not be considered
@@ -554,7 +562,8 @@ def a_star(output_file):
 
 
 def write_path(output_file: str, open_list: List[Node], scope_node_found: bool, scope_node: Node, start_time: float) -> None:
-    """    Writes the path found by the algorithm to a file, along with the execution time.
+    """    
+    Writes the path found by the algorithm to a file, along with the execution time.
 
     Args:
         output_file (str): the name of the file to write the output to.
@@ -581,19 +590,26 @@ def write_path(output_file: str, open_list: List[Node], scope_node_found: bool, 
 
 
 if __name__ == "__main__":
+    # Iterate over the input files
     for it in range(1, NUM_INPUT_FILES + 1):
         # read the problem definition
-        current_input_file = INPUT_FILE_NAME + str(it) + ".txt"
-        current_output_file = INPUT_FILE_NAME + str(it) + "_output.txt"
+        current_input_file = os.path.join(os.getcwd(), 'inputs', INPUT_FILE_NAME + str(it) + ".txt")
+        current_output_file = os.path.join(os.getcwd(), 'outputs', INPUT_FILE_NAME + str(it) + "_output.txt")
         
+        # Read the input file
         classroom, upset_students_pairs, message = read_class_info(current_input_file) 
-        num_rows, num_cols = len(classroom), len(classroom[0])       
+        num_rows, num_cols = len(classroom), len(classroom[0])    
+        
+        # Show the classroom configuration   
         show_classroom(classroom)
         
+        # Set the start and final configurations
         start_configuration = Configuration(classroom, message[0])
         final_configuration = Configuration(classroom, message[1])
         
+        # Set up the problem
         problem = Problem(start_configuration, final_configuration)
         NodeTraversal.problem = problem
+        
+        # Run A* search
         a_star(current_output_file)
-            
