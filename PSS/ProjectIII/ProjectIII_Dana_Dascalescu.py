@@ -7,11 +7,11 @@
     
     Problem formulation:
         In classroom 308, students taking the Artificial Intelligence exam are seated on two-person benches arranged in rows and columns.
-        Some of the seats are empty. Ana wants to help her colleague Vlad succeed on the exam by giving him the correct answers. There 
+        Some of the seats are empty. Eve wants to help her colleague Adam succeed on the exam by giving him the correct answers. There 
         are restrictions on how notes may be sent, however. Students are only able to communicate with a fellow student who is 
         immediately behind, in front of, or next to them. Furthermore, it is difficult to interact across rows since the teacher may see
         students attempting to share notes. The feasible options for message transfer are limited to the last seats in each row.
-        Therefore, the challenge at hand is to devise an optimal strategy for Ana to transfer the answers to Vlad within the given 
+        Therefore, the challenge at hand is to devise an optimal strategy for Eve to transfer the answers to Adam within the given 
         restrictions.
 
 
