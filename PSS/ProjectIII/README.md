@@ -1,12 +1,16 @@
-# Project I
+# Project III
 
 ## Overview
-This project aims to create an application that applies at least two uninformed search methods to solve a given problem. Following is a description of the problem statement and a summary of the uninformed search techniques that will be utilized to solve it.
+Develop an application that uses a Local Search Algorithm to tackle a problem that you have formulated and defined.
 
 ## Problem statement
-In classroom 308, students taking the Artificial Intelligence examination are placed on two-person benches arranged in rows and columns. Some seats are unoccupied. Diana wishes to assist her friend Călin in passing on the exam by sending him the correct responses. However, there are restrictions on the transmission of notes. Students may only send a message to the colleague directly behind, in front of, or next to them, but not diagonally. Furthermore, passing messages between rows is difficult because the teacher can easily notice it. Only the second-to-last and last seats in each row may be utilized for message transfer.
+In classroom 308, students taking the Artificial Intelligence exam are seated on two-person benches arranged in rows and columns. Some of the seats are empty. Eve wants to help her colleague Adam succeed on the exam by giving him the correct answers. There are restrictions on how notes may be sent, however. Students can only communicate with a fellow student who is immediately behind, in front of, or next to them. Furthermore, it is difficult to interact across rows since the teacher may see students attempting to share notes. The feasible options for message transfer are limited to the last seats in each row. Therefore, the challenge is to devise an optimal strategy for Eve to transfer the answers to Adam within the given restrictions. 
 
 ## Solution
-We will use the following search algorithms to solve the problem: _Depth-First Search (DFS)_, _Breadth-First Search (BFS)_, _Depth-Limited Search (DLS)_, and _Iterative Deepening Search (IDS)_. We will compare the performance and efficacy of DFS and BFS, as well as examine the applicability of DLS and IDS to this specific problem. Using the constraints specified in the problem statement, the algorithms will be used to determine the path the message must take from Diana to Călin.
+To utilise the functionality of this project, you should first clone the repository and subsequently execute the ProjectIII_Dana_Dascalescu.py file. The sender and receiver of the message will be prompted during runtime.
 
-To use this project, clone the repository and run the `ProjectI_Dana_Dascalescu.py` file. There is no user input prompt regarding the number of rows, the seating arrangement of the students, or the locations of Diana and Călin.  These are located in the text file `project1_input.txt`. The program will output the shortest path for passing the message from Diana to Călin, the execution time, and the maximum memory usage.
+Furthermore, the students' list is expected to be provided in a text file named `input.txt`, with each student's name placed on a separate row. Additionally, the pairs of students upset with each other should be present in a file named `upset_students.txt`.
+
+The project employs a local search algorithm called Hill Climb Search. The implementation includes a custom initialization function and a cost function that optimises both the trustworthiness of the students receiving the message and minimises the number of steps for the message to reach the receiver.
+
+The seating arrangement of the students, the number of rows, and the locations of the sender and the receiver are taken from the input files and from the problem definition, and there is no need for any user input regarding these aspects. After execution, the programme will generate the path for passing the message from the sender to the receiver.
