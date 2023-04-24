@@ -1,6 +1,6 @@
 # Project III
 
-## Overview
+## Task requirements
 Develop an application that uses a Local Search Algorithm to tackle a problem that you have formulated and defined.
 
 ## Problem statement
