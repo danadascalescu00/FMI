@@ -1,6 +1,6 @@
 
-# Laborator Învățare Automată UNIBUC 2022-2023
-## Grupa 231
+## Laborator Învățare Automată UNIBUC 2022-2023
+### Grupa 231
 
 Materiale laborator pentru cursul de Învățare Automată (studii de licență).
 
