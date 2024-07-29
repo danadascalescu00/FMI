@@ -1,20 +1,20 @@
 # Image Colorization using Convolutional Autoencoders
 
-The project is an implementation of an image (or video) coloring algorithm (grayscale images) using a convolutional autoencoder(using Tensorflow 2.0).
+The project is an implementation of an image (or video) colouring algorithm (grayscale images) using a convolutional autoencoder (using Tensorflow 2.0).
 
 <p align="center">
   <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/ColoringImages/data/output_images/coast/coast128reusit3.png">
   <br/>
-  <p align="center"><b>Figure 1. </b> Lab representaion (left), colored imaged (middle), original image (right).</p>
+  <p align="center"><b>Figure 1. </b> Lab representation (left), coloured image (middle), the original image (right).</p>
 </p>
 
-**Introduction.** Coloring images consists of transforming a grayscale image into an RBG image (BGR or Lab). The algorithm described below is based on the construction of an autoencoder that receives as input data the L channel, similar to a grayscale image and which predicts the ab channels of the Lab representation, sufficient to visualize the image in color. This type of autoencoder is called a *cross-channel autoencoder*.  
+**Introduction.** Coloring images consists of transforming a grayscale image into an RBG image (BGR or Lab). The algorithm described below is based on the construction of an autoencoder that receives as input data the L channel, similar to a grayscale image and which predicts the ab channels of the Lab representation, sufficient to visualize the image in colour. This type of autoencoder is called a *cross-channel autoencoder*.  
 <br/>
 
 <p align="center">
   <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/ColoringImages/data/output_images/forest/forest128reusit1.png">
   <br/>
-  <p align="center"><b>Figure 2. </b> Lab representaion (left), colored imaged (middle), original image (right).</p>
+  <p align="center"><b>Figure 2. </b> Lab representation (left), coloured image (middle), the original image (right).</p>
 </p>
 
 The trained autoencoder consists only of convolutional layers and upsampling layers.
@@ -33,7 +33,7 @@ The architecture of the autoencoder:
 <br/>
 
 #### Coloring video results
-  <p> Original video on the left. Colored and resized video on the right. </p>
+  <p> Original video on the left. Coloured and the resized video on the right. </p>
   
   [![Demo Coloring Video](https://j.gifs.com/D1zomq.gif)](https://github.com/danadascalescu00/FMI/blob/master/CV/ColoringImages/input_video.mp4)
   <img src="https://github.com/danadascalescu00/FMI/blob/master/CV/ColoringImages/input_video_colored.gif" width="150">
